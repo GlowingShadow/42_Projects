@@ -159,3 +159,23 @@ glfw/
 glfw-*/
 build/
 *.pc
+
+# Editor temporary / backup files
+# Vim
+*.swp
+*.swo
+*.swn
+.*.swp
+.*.swo
+# Emacs
+*~
+\#*\#
+.\#*
+# Nano
+*.save
+# Kate
+*.kate-swp
+# Generic backups
+*.bak
+*.orig
+*.tmp
