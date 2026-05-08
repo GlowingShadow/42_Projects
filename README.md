@@ -37,6 +37,7 @@ A collection of projects completed at [42 School](https://42.fr), organized by c
 | **lem_in** | Ant pathfinding — find optimal flows through a graph |
 | **corewar** | Virtual machine + assembler for the Corewar programming game |
 | **mod1** | Java simulation — terrain deformation and water flow |
+| **npuzzle** | N-puzzle (sliding tile / taquin) solver in Java — A* and IDA* with Swing GUI visualization |
 
 ---
 
