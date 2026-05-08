@@ -1,3 +1,31 @@
+*.zip
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.7z
+
+# 42 Projects specifics
+auteur
+aff_lemipc
+philo
+ft_script
+ft_minishell1
+computor
+push_swap
+lem-in
+wolf3d
+calc
+
+# SDL / FMOD vendor libs
+rtv1/SDL/
+wolf3d/fmodAPI/
+
+# Build output folders
+biin/
+
+# Terminal recordings
+typescript
+
 # Prerequisites
 *.d
 
@@ -53,3 +81,86 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# Visual Studio
+.vs/
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.ncb
+*.sdf
+*.opensdf
+*.cachefile
+*.VC.db
+*.VC.opendb
+ipch/
+x64/
+x86/
+[Dd]ebug/
+[Rr]elease/
+[Bb]in/
+[Oo]bj/
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+cmake_uninstall.cmake
+install_manifest.txt
+CTestTestfile.cmake
+_deps/
+*.cmake
+!CMakeLists.txt
+
+# Unity3D
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+sysinfo.txt
+*.apk
+*.aab
+*.unitypackage
+*.app
+crashlytics-build.properties
+Assets/AssetStoreTools*
+Assets/Plugins/Editor/JetBrains*
+.DS_Store
+.idea/
+ExportedObj/
+.consulo/
+*.csproj
+*.tmp
+*.unityproj
+*.DS_Store
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+/[Aa]ssets/[Ss]treamingAssets/aa.meta
+/[Aa]ssets/[Ss]treamingAssets/aa/
+
+# GLFW
+glfw/
+glfw-*/
+build/
+*.pc
