@@ -1,0 +1,33 @@
+//REDACTED
+ASM:
+done:
+	- lecture du champion, chaque instruction et ses arguments sont stockes dans un maillon
+		maillon->instab(char**)
+	- verification des label et infos (comment et name)
+	- remplir les champs bytecode, pos, len, label et done
+	- encoder les bytecode (ref: op.c)
+		V opcode instruction
+		V octet de codage des parametres
+		V bytecode des parametres
+		V bytecode des labels
+	- octets vides: ils servent en fait aux valeurs > 255
+		ex: 4294967295 (0xffffffff) codé sur 4 octets.. ft_atoi! -> unsigned int
+		reconstruire ces 4/2 octets
+	- overflow pos relative des labels
+	- gerer les parametres sans espaces (cf excl.s)
+	- gerer les unsinged int (4B+): faire un ft_atoi unsinged int ?
+		ou pas: int stocké sur 4 octets, abs(-2b - +2b) = 4b
+	- header
+	- ecrire le .cor
+	- comparer avec le asm de 42
+	- gestion d'erreur a verifier
+	- norm
+todo:
+
+remarques:
+(ref: op.h)		- dans les arguments: si il y a un LABEL_CHAR (:) apres le
+					DIRECT_CHAR (%), cela veut dire qu il refere à un label
+					ex: zjmp %:live
+(ref: op.h)		- le SEPARATOR_CHAR (,) a la fin d'un argument signifie
+					qu'il y a d'autres arguments
+					ex: xor	r2, %15, r4

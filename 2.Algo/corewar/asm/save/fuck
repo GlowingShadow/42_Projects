@@ -1,0 +1,39 @@
+//Dorian
+#include <asm.h>
+
+static void		ft_delete_maillon(t_ins **ins)
+{
+	t_ins	*tmp;
+
+	tmp = *ins;
+	*ins = (*ins)->next;
+	// free(tmp->ins);
+	// free(tmp->bytecode);
+	// free(tmp->label);
+	free(tmp);
+}
+
+int	main(int ac, char **av)
+{
+	t_env	*e;		;
+	t_ins	*ins;(void)ins;
+
+	e = (t_env*)ft_malloc(sizeof(t_env));
+	e->i = 0;
+	ft_putendl("\nSTART\n");
+	if (ac > 1)
+	{
+		ins = read_champ(av[1]);
+		while (ins != NULL)
+		{
+			if (ft_strlen(ins->ins) == 0)
+				ft_delete_maillon(&ins);
+			if (ins != NULL)
+			{
+				ft_putendl(ins->ins);
+				ins = ins->next;
+			}
+		}
+	}
+	return (0);
+}
