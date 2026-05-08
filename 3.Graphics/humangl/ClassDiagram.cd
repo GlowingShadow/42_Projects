@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Fps" Collapsed="true">
+    <Position X="10.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIBAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAIAQAEA=</HashCode>
+      <FileName>main.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blueprint">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAIIAYAAAAEAAAADAAAAEACAAGAAAAAAAkAAAAAAA=</HashCode>
+      <FileName>blueprint.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cam">
+    <Position X="5.25" Y="5.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAgACagggQAAAQAAAAAAQAAAAAqDRIgKAKAAAAQQAA=</HashCode>
+      <FileName>cam.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Math">
+    <Position X="10.25" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="Math::Rotation" Collapsed="true">
+        <Compartments>
+          <Compartment Name="Fields" Collapsed="true" />
+          <Compartment Name="Methods" Collapsed="true" />
+        </Compartments>
+        <TypeIdentifier>
+          <NewMemberFileName>math.hpp</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Math::Vector3" Collapsed="true">
+        <Compartments>
+          <Compartment Name="Fields" Collapsed="true" />
+          <Compartment Name="Methods" Collapsed="true" />
+        </Compartments>
+        <TypeIdentifier>
+          <NewMemberFileName>math.hpp</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Math::Matrix4" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>math.hpp</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAIAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>math.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Misc" Collapsed="true">
+    <Position X="10.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAgAgAAAAAAAAAAAAAAAAAAAAQAAAAAAAAIIAAAA=</HashCode>
+      <FileName>misc.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Obj3d">
+    <Position X="2.75" Y="5.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>BgAABALAAwAJAgQAEIBABQAAAAAoAAAiAABgggA4ACE=</HashCode>
+      <FileName>obj3d.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Obj3dBP">
+    <Position X="5.25" Y="3" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <InheritanceLine Type="Blueprint" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6" Y="2.632" />
+        <Point X="6" Y="3" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAABAQAAAAggAAAAAAA=</HashCode>
+      <FileName>obj3dBP.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Obj3dPG">
+    <Position X="2.75" Y="2.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAIAAAACAAAIAgAAAAAAAQAACABAiAAQAAAAAAAQAAI=</HashCode>
+      <FileName>obj3dPG.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Program">
+    <Position X="1.5" Y="0.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAKAgQAQAAAQAAAEAIAAAAAEAAAAAAAIAAABIAAAAAA=</HashCode>
+      <FileName>program.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Skybox">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAgIAAAAAAEAAAhJAAAQECAAAQAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>skybox.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkyboxPG">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAMAAAAAEAAAAABBAAAAAABAAAAAgAAAAAAAAAAQAAA=</HashCode>
+      <FileName>skyboxPG.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Texture">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>QgAQAAAABACAggQAACBAAAAAABAAQAAAAAJAAAAAAAA=</HashCode>
+      <FileName>texture.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Glfw">
+    <Position X="7" Y="5.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AgEA1AAAQoCABEBAAAAEAAAAABBAAAIADAAAAAAAAAA=</HashCode>
+      <FileName>glfw.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
