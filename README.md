@@ -1,6 +1,6 @@
 # 42 Projects
 
-A collection of projects completed at [42 School](https://42.fr), organized by category.
+A collection of projects completed at [42 School](https://42.fr), started in 2014.
 
 ---
 
