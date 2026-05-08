@@ -1,0 +1,31 @@
+DOWN
+C-M-q
+M-x delete-trailing-whitespace
+-----------------------------------------------------------------
+3x replace en search:
+	shift + esc + 5
+	pattern-to-search
+	ENTER
+	replace-pattern
+	ENTER
+	!
+			pattern-to-search		replace-pattern
+			'while('				'while ('
+			'break;'				'break ;'
+			'        '				'		'
+-----------------------------------------------------------------
+C-r char	tmp;
+C-@
+DOWN
+DOWN
+DOWN
+C-w
+LEFT
+UP
+UP
+C-y
+C-r {
+C-M-q
+C-c C-h
+UP
+ENTER

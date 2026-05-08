@@ -17,11 +17,8 @@ wolf3d
 calc
 
 # SDL / FMOD vendor libs
-rtv1/SDL/
-wolf3d/fmodAPI/
-
-# Build output folders
-biin/
+3.Graphics/rtv1/SDL/
+3.Graphics/wolf3d/fmodAPI/
 
 # Terminal recordings
 typescript

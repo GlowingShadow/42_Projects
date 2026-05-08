@@ -1,0 +1,339 @@
+cd projects/docker/mission01/
+docker built -t .
+docker build -t .
+docker build -t bunt .
+docker run -i -t bunt
+docker rmi bunt
+docker rmi -f bunt
+docker images
+docker rmi -f bunt
+docker rmi -f bunt
+docker rmi -f bunt
+docker rmi -f bunt
+docker rmi -f bunt
+docker rmi -f bunt
+docker rmi -f bunt
+docker rmi -f bunt
+docker rmi -f bunt && sh start.sh
+docker rmi -f bunt && sh start.sh
+docker rmi -f bunt && sh start.sh
+docker rmi -f bunt && sh start.sh
+docker rmi -f hello/world:v42 && sh start.sh
+docker ps
+docker ps -a
+docker rm bb79
+docker rm *
+docker ps -a
+docker rn t1
+docker rm t1
+docker rm 7b1
+docker rm c6
+docker rm 04
+docker ps
+docker ps -a
+docker rm 07e
+docker rm 07eaa
+docker rm 2aa51
+docker rm 80fc
+docker ps -a
+docker rm 07e3
+docker rm b28d c9bed
+docker rm  d301 7d4f de3e b5b 6abb 2de6f
+docker ps -a
+docker rm 2acf9c65f785 e9b066dac2d1 2d2fb4eab8a3 4c78520c73e8 f8ddebb4b7c3
+docker ps -a
+docker rm 3e15852db8db d6369d9500bf a293b8a0aa1d cadc03ba3b12 9a2cb1bef7d6 03b7b77a41e4 
+docker ps -a
+docker rm 2f879a4dd83c ad3c73b15315 67ec00476182 66bf8295e90c d8cca02c3e26 cd2c68caa92e 1bb5c47b0d5a f45a2a333a32 037ac3f1f039 b4424d959393 
+docker ps -a
+docker rm 36f820e9c14d 50b12d2923c1 fc6f7c11cd4e 7adfdd7f94aa e3ee8272cd78
+docker ps -a
+docker rm e8efcc894edd
+docker ps
+docker ps -a
+docker ps -a
+docker ps
+docker ps
+docker stop 09b
+docker ps
+docker ps -a
+docker rm 3a33
+docker rm 09b
+docker ps
+docker logs demo1
+docker logs e34
+docker stop demo1
+docker rm demo1
+docker ps -a
+docker ps
+docker ps
+docker stop d1
+docker rm d1
+docker ps
+docker stop d1
+docker rm d1
+docker ps
+docker stop d1
+docker rm d1
+docker rm d1
+docker rm d1
+docker ps -a
+docker ps -a
+docker ps -a
+docker inspect f97
+docker stop volume1
+docker ps -a
+docker stop d1
+docker rm d1
+docker ps 
+docker ps -a
+docker stop volume1
+docker ps
+docker stop d1
+docker rm d1
+docker ps
+docker ps -a
+docker exec -ti 3d89 bash
+docker ps
+docker ps -a
+docker rm d1
+docker ps
+docker exec -ti d1 bash
+docker ps
+docker stop d1
+docker rm d1
+docker ps
+docker inspect d1
+docker exec -ti d1 bash
+docker ps
+docker ps -a
+docker rm d1
+docker ps
+docker inspect d1
+docker exec -ti d1 bash
+docker exec -ti d1 bash
+docker logs d1
+docker ps
+docker rm -f a33
+docker ps -a
+docker ps
+docker exec -ti d1 bash
+docker rm -f d1
+docker ps
+docker ps -a
+docker ps
+docker stop d1
+docker rm d1
+docker ps
+docker ps -a
+docker rm 26
+docker rm 1e
+docker ps
+docker ps -a
+docker exec -ti d1 bash
+docker ps
+docker rm d1
+docker rm -f d1
+docker ps -a
+docker run -it -v /nfs/zfs-student-4/users/2014/REDACTED/projects/docker/mission03/vol1:/tmp/data volume1
+docker images
+docker rmi -f 17ad9d8806c2 0a536bf0aeed c2e5d6d92d5c 4f70d4022846 55d9f6187dcd e04ea7b1ddcb
+docker images
+docker rmi -f c79a5d4d0c3a 0d19ac9f5a53 4768c5721ff9 047a20aa5f22 d9d506215be6 f4fddc471ec2 
+docker images
+docker rmi 97
+docker images
+docker images
+docker run -it -v /nfs/zfs-student-4/users/2014/REDACTED/projects/docker/mission03/vol1:/tmp/data volume1
+docker ps
+docker ps -a
+docker rm d1
+docker rm evil
+docker rm evil_meitner
+docker rm happy_khorana
+docker build -t .
+docker build -t . vol11
+docker ps
+docker images
+docker rmi -f volume1
+docker images
+docker ps
+docker ps -a
+docker build -t volume1 .
+docker run -it -v /nfs/zfs-student-4/users/2014/REDACTED/projects/docker/mission03/vol1:/tmp/data volume1
+docker ps
+docker ps -a
+docker rm 7d79554be533
+docker ps
+docker ps -a
+docker images
+docker run -it -v /nfs/zfs-student-4/users/2014/REDACTED/projects/docker/mission03/vol1:/tmp/data volume1
+docker rmi volume1
+docker rmi -f volume1
+docker ps
+docker ps -a
+docker rm 00b
+docker build -t volu .
+docker images
+docker run -it --rm -v /nfs/zfs-student-4/users/2014/REDACTED/projects/docker/mission03/vol1:/tmp/data volu
+docker ps
+docker ps -a
+docker images
+docker rmi -f volu
+docker images
+docker build -t im1 .
+docker images
+docker run -it -v /nfs/zfs-student-4/users/2014/REDACTED/projects/docker/mission03/vol1:/test1 im1
+docker images
+docker rmi im1
+docker rmi -f im1
+docker ps -a
+docker rm -f 10
+docker ps
+docker ps -a
+docker images
+docker build -t dem .
+docker images
+docker un -it -v /nfs/zfs-student-4/users/2014/REDACTED/projects/docker/mission03/vol1:/test
+docker run -it -v /nfs/zfs-student-4/users/2014/REDACTED/projects/docker/mission03/vol1:/test dem
+docker ps -a
+docker rm 7b
+docker run -d -v /nfs/zfs-student-4/users/2014/REDACTED/projects/docker/mission03/vol1:/test dem
+docker ps
+docker exec -ti bash
+docker exec -ti 463 bash 
+docker ps
+docker ps -a
+docker rm 463
+docker run -dt -v /nfs/zfs-student-4/users/2014/REDACTED/projects/docker/mission03/vol1:/test dem
+docker ps
+docker exec -it 3c3 bash
+docker ps
+docker exec -it 3c3 bash
+docker restart 3c3
+docker exec -it 3c3 bash
+docker run -dt -v /nfs/zfs-student-4/users/2014/REDACTED/projects/docker/mission03/vol1/:/test dem
+docker exec -it cbe bash
+docker exec -it cbe bash
+docker ps
+docker rm -f 3c3 cbe
+docker ps -a
+docker iamges
+docker images
+docker build -t demo .
+docker build -t demo ..
+docker run -dt -v /nfs/zfs-student-4/users/2014/REDACTED/projects/docker/mission03/vol1/:/test/ demo
+docker ps
+docker exec -it ea37 bash
+docker images
+docker rmi -f dem demo
+docker ps
+docker rm -f ea3
+docker ps -a
+docker images
+docker rmi -f demo
+docker build --no-cache demo1 .
+docker build -t --no-cache demo1 .
+docker build -t demo1 .
+docker build -t demo1 .
+docker run -dt -v /nfs/zfs-student-4/users/2014/REDACTED/projects/docker/mission03/vol1:/test demo1
+docker exec -it c54 bash
+docker stop c54
+docker rm c54
+docker rmi -f demo1
+docker build -t demo1 .
+dicker run -dt -v /nfs/zfs-student-4/users/2014/REDACTED/projects/docker/mission03/vol1:/test demo1
+docker run -dt -v /nfs/zfs-student-4/users/2014/REDACTED/projects/docker/mission03/vol1:/test demo1
+docker exec -it 8cfff bash
+docker stop 8cf
+docker rm -f 8cf
+docker rmi -f demo1
+docker ps
+docker ps -a
+docker images
+docker build -t d1 .
+docker run -dt -v /nfs/zfs-student-4/users/2014/REDACTED/projects/docker/mission03/vol1:/test d1
+docker exec -it d1 bash
+docker ps
+docker exec -it 60 bash
+docker exec -it d1 bash
+docker exec -it 60 bash
+docker stop 60
+docker rm -f 60
+docker rmi -f d1
+docker ps -a
+docker images
+docker ps
+docker ps
+docker ps -a
+docker images
+docker build -t dem .
+docker run -dt -v /nfs/zfs-student-4/users/2014/REDACTED/projects/docker/mission03/vol1:/test dem
+docker ps
+docker exec -it 77f bash
+docker exec -it 77f bash
+docker run -dt -v /nfs/zfs-student-4/users/2014/REDACTED/projects/docker/mission03/vol1:/test dem
+docker exec -it 78 bash
+docker exec -it 77 bash
+docker exec -it 78 bash
+docker exec -it 77 bash
+docker ps
+docker stop 78 77
+docker rm 78 77
+docker ps
+docker ps -a
+docker images
+docker rmi -f dem
+docker build -t ssh .
+docker run -d -P --name tssh ssh
+docker port tssh
+mkdir -p ~/.boot2docker
+if [ ! -f ~/.boot2docker/boot2docker.iso ]; then cp /usr/local/share/boot2docker/boot2docker.iso ~/.boot2docker/ ; fi
+/usr/local/bin/boot2docker init 
+/usr/local/bin/boot2docker up 
+$(/usr/local/bin/boot2docker shellinit)
+docker version
+docker ps
+docker stop tssh
+docker rm -f tssh
+docker ps -a
+docker iamges
+docker images
+docker rmi -f ssh
+docker images
+docker rmi -f 91e54
+docker images
+docker ps -a
+docker ps
+mkdir -p ~/.boot2docker
+if [ ! -f ~/.boot2docker/boot2docker.iso ]; then cp /usr/local/share/boot2docker/boot2docker.iso ~/.boot2docker/ ; fi
+/usr/local/bin/boot2docker init 
+/usr/local/bin/boot2docker up 
+mkdir -p ~/.boot2docker
+if [ ! -f ~/.boot2docker/boot2docker.iso ]; then cp /usr/local/share/boot2docker/boot2docker.iso ~/.boot2docker/ ; fi
+/usr/local/bin/boot2docker init 
+/usr/local/bin/boot2docker up 
+mkdir -p ~/.boot2docker
+if [ ! -f ~/.boot2docker/boot2docker.iso ]; then cp /usr/local/share/boot2docker/boot2docker.iso ~/.boot2docker/ ; fi
+/usr/local/bin/boot2docker init 
+/usr/local/bin/boot2docker up 
+mkdir -p ~/.boot2docker
+if [ ! -f ~/.boot2docker/boot2docker.iso ]; then cp /usr/local/share/boot2docker/boot2docker.iso ~/.boot2docker/ ; fi
+/usr/local/bin/boot2docker init 
+/usr/local/bin/boot2docker up 
+mkdir -p ~/.boot2docker
+if [ ! -f ~/.boot2docker/boot2docker.iso ]; then cp /usr/local/share/boot2docker/boot2docker.iso ~/.boot2docker/ ; fi
+/usr/local/bin/boot2docker init 
+/usr/local/bin/boot2docker up 
+mkdir -p ~/.boot2docker
+if [ ! -f ~/.boot2docker/boot2docker.iso ]; then cp /usr/local/share/boot2docker/boot2docker.iso ~/.boot2docker/ ; fi
+/usr/local/bin/boot2docker init 
+/usr/local/bin/boot2docker up 
+mkdir -p ~/.boot2docker
+if [ ! -f ~/.boot2docker/boot2docker.iso ]; then cp /usr/local/share/boot2docker/boot2docker.iso ~/.boot2docker/ ; fi
+/usr/local/bin/boot2docker init 
+/usr/local/bin/boot2docker up 
+boot2docker delete
+boot2docker init
+docker ps
+boot2docker

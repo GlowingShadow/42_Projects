@@ -1,0 +1,16 @@
+
+The first problem that many beginners face when confronted
+with the end-of-file issue is that of the EOF character, basically,
+
+there isn't one, but people think there is.
+Neither the Windows nor the Linux operating systems
+
+
+have any concept of a marker character for indicating the end-of-file.
+If you create a text file using Notepad on Windows, or Vim on Linux,
+or any other editor/OS combination you fancy,
+that file will nowhere in it contain a special character marking the end-of-file.
+Both Windows and Linux have file systems that always know the exact length
+in bytes of the contents of a file, and have absolutely no need of any special
+character marking the file's end.
+

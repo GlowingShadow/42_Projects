@@ -1,0 +1,10 @@
+:%s/while(/while (/g
+:%s/break;/break ;/g
+:%s/\s\+$//
+/char\t
+3dd
+2G
+p
+[F1]
+gg=G
+:w

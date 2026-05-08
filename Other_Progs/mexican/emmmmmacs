@@ -1,0 +1,59 @@
+; Load general features files
+(setq config_files "/usr/share/emacs/site-lisp/")
+(setq load-path (append (list nil config_files) load-path))
+
+(load "list.el")
+(load "string.el")
+(load "comments.el")
+(load "header.el")
+
+; Set default emacs configuration
+(set-language-environment "UTF-8")
+(setq-default font-lock-global-modes nil)
+(setq-default line-number-mode nil)
+(setq-default tab-width 4)
+(setq-default indent-tabs-mode t)
+(global-set-key (kbd "DEL") 'backward-delete-char)
+(setq-default c-backspace-function 'backward-delete-char)
+(setq-default c-basic-offset 4)
+(setq-default c-default-style "linux")
+(setq-default tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60
+                             64 68 72 76 80 84 88 92 96 100 104 108 112 116 120))
+
+; Load user configuration
+(if (file-exists-p "~/.myemacs") (load-file "~/.myemacs"))
+
+; (set-language-environment "UTF-8")
+
+; (setq custom-file "~/.emacs-custom.el")
+; (load custom-file)
+
+;; numero de colone
+(setq column-number-mode t)
+
+;; auto-indent
+(add-hook 'c-mode-common-hook '(lambda () (c-toggle-auto-state 1)))
+
+;; indentation style
+(setq c-default-style "linux")
+
+;; indent offset
+(setq-default c-basic-offset 4)
+
+;; Raccourcis
+(global-set-key (kbd "C-c h") 'replace-string)
+(global-set-key (kbd "C-c j") 'replace-regexp)
+(global-set-key (kbd "C-c o") 'bury-buffer)
+(global-set-key (kbd "C-c k") 'kill-this-buffer)
+
+;; highlight
+(setq show-trailing-whitespace t)
+
+;; stop deleting empty line with the command 'delete-trailing-whitespace'
+(setq delete-trailing-lines nil)
+
+;; highligh successive whitespace
+(global-hi-lock-mode 1)
+
+(global-hi-lock-mode 1) (add-hook 'change-major-mode-hook '(lambda () (highlight-regexp "\\(^\\s-*$\\)\n" 'hi-yellow)))
+
