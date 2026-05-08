@@ -86,6 +86,19 @@ A collection of projects completed at [42 School](https://42.fr), organized by c
 
 ---
 
+## Exams
+
+Some timed C programming exams completed during the 42 cursus.
+
+| Exam | Exercises |
+|---|---|
+| **exam0** | `rotone` — ROT-1 cipher · `hidenp` — subsequence check · `union` — character union of two strings |
+| **exam1** | `ulstr` — swap case · `wdmatch` — word pattern match · `ft_strdup` · `inter` — string intersection · `str_maxlenoc` — longest non-repeating substring |
+| **exam2** | `first_word` — print first word · `epur_str` — compress spaces · `ft_range` — allocate int range · `sort_int_tab` — sort array |
+| **exam3** | `ulstr` · `wdmatch` · `rev_wstr` — reverse words · `sort_list` — sort linked list · `str_maxlenoc` · `mult` — matrix multiplication |
+
+---
+
 ## Build
 
 Most C projects use a `Makefile`. From any project folder:
