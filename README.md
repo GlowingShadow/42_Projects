@@ -68,6 +68,7 @@ A collection of projects completed at [42 School](https://42.fr), organized by c
 | Project | Description |
 |---|---|
 | **dr_quine** | Self-replicating programs (quines) in C — programs that output their own source code |
+| **Snowcrash** | 15-level Linux CTF — privilege escalation through file permissions, PATH hijacking, ROT ciphers, setuid binaries, env injection, and more |
 | **Rainfall** | 10-level Linux binary exploitation — reverse engineering ELF binaries with GDB, format string attacks, ret2libc |
 | **Override** | 10-level binary exploitation sequel to Rainfall — harder challenges, same CTF-style escalation through user levels |
 

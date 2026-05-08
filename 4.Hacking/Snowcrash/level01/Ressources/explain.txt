@@ -1,0 +1,15 @@
+Command:
+	cat /etc/passwd | grep flag01
+Result:
+	flag01:42hDRfypTqqnw:3001:3001::/home/flag/flag01:/bin/bash
+
+Le fichier /etc/passwd est une base de données textuelle d'informations sur les utilisateurs qui peuvent se connecter au système.
+nom_du_compte : mot_de_passe : numero_utilisateur : numero_de_groupe : commentaire : répertoire : programme_de_demarrage
+Le mot de passe n'est normalement pas indiqué
+
+Executer le script commands.sh
+
+Command:
+	getflag
+Result:
+	f2av5il02puano7naaf6adaaf

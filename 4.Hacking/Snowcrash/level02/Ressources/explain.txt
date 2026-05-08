@@ -1,0 +1,12 @@
+Ouvrir level02.pcap avec cloudshark.org
+Cliquer sur “Analysis tool” -> “Follow Stream”
+On peut y lire le mot de passe: ft_wandrNDRelL0L
+
+Command:
+	su flag02
+Command:
+	ft_wandrNDRelL0L
+Command:
+	getflag
+Result:
+	kooda2puivaav1idi4f57q8iq

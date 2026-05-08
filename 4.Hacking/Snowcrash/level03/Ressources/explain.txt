@@ -1,0 +1,15 @@
+Command:
+	chmod 777 ./
+Command:
+	touch echo
+Command:
+	chmod 777 echo
+
+Fichier echo :
+
+#!/bin/bash
+
+getflag
+
+Command:
+	env PATH=/home/user/level03:$PATH ./level03

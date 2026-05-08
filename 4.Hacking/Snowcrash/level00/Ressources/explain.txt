@@ -1,0 +1,19 @@
+Command:
+	find / -user flag00 2>/dev/null
+Result:
+	/usr/sbin/john
+	/rofs/usr/sbin/john
+Command:
+	cat /usr/sbin/john
+Result:
+	cdiiddwpgswtgt
+
+on trouve des fichiers nommés "john" avec un password;
+rot(11) sur le password. https://www.rot13.com/
+On obtient le flag : nottoohardhere
+Puis on se connect avec su flag00
+
+Command:
+	getflag
+Result:
+	x24ti5gi3x0ol2eh4esiuxias
