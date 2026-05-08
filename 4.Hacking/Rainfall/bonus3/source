@@ -1,0 +1,25 @@
+#include <...>
+
+int		main(int ac, char **av)
+{
+	char buf[160];
+	int	n;
+
+	FILE	*f = fopen("/home/user/end/.pass", "r");
+	if (f && ac == 2)
+	{
+		fread(buf, 1, 66, f);
+		n = atoi(av[1]);
+		buf[n] = '\0';
+		fread(buf + 66, 1, 65, f);
+		fclose(f);
+		if (strcmp(buf, av[1]) == 0)
+		{
+			execl("bin/sh", NULL);
+		}
+		puts("");
+	}
+	else
+		return (255);
+	return (0);
+}

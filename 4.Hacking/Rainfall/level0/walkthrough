@@ -1,0 +1,21 @@
+	level0@RainFall:~$ (gdb) disas main
+		[...] 
+		0x08048ed4 <+20>:    call   0x8049710 <atoi>
+		0x08048ed9 <+25>:    cmp    $0x1a7,%eax
+		0x08048ede <+30>:    jne    0x8048f58 <main+152>
+		[...]
+		0x08048f7b <+187>:   call   0x804a230 <fwrite>
+
+
+Le programme fait un atoi() du 1er argument, il compare avec 0x1a7 (423).
+En cas d'inegalite il jump a main+152 et print "No !". Sinon il lamce un shell avec execve: 
+
+	level0@RainFall:~$ ./level0
+	Segmentation fault (core dumped)
+	level0@RainFall:~$ ./level0 1
+	No !
+	level0@RainFall:~$ ./level0 423
+	$ whoami
+	level1
+	$ cat /home/user/level1/.pass
+	1fe8a524fa4bec01ca4ea2a869af2a02260d4a7d5fe7e7c24d8617e6dca12d3a

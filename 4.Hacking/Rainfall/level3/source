@@ -1,0 +1,22 @@
+#include <...>
+
+int	m = 0;
+
+void	v(void)
+{
+	char	buf[X];
+
+	fgets(buf, X, stdin);
+	printf(buf);  // bad! On exploit ici
+	if (m == 64)
+	{
+		fwrite("Wait What?!");
+		system("/bin/sh");
+	}
+}
+
+int	main(void)
+{
+	v();
+	return (0);
+}

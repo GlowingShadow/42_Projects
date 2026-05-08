@@ -1,0 +1,22 @@
+#include <...>
+
+void	o()
+{
+	system("/bin/sh");
+	_exit(1);
+}
+
+void	n()
+{
+	char	buf[X];
+
+	fgets(buf, X, stdin);
+	printf(buf);
+	exit(1);
+}
+
+int		main()
+{
+	n();
+	return (0);
+}

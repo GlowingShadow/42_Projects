@@ -1,0 +1,45 @@
+#include <...>
+
+char *auth = NULL;
+char *service = NULL;
+
+int		main(void)
+{
+	char	buf[128];
+
+	while (1)
+	{
+		printf("%p, $p \n", auth, service);
+		if (fgets(buf, 128, stdin))
+		{
+			if (strncmp(buf, "auth ", 5) == 0)
+			{
+				auth = malloc(4);	// this is the bad part
+				if (strlen(buf + 5) <= 30) // with final \n !
+					strcpy(service, buf + 5)
+			}
+			if (strncmp(buf, "reset", 5) == 0)
+			{
+				if (auth)
+					free(auth);
+			}
+			if (strncmp(buf, "service", 6) == 0)	// 6 -> servic !
+			{
+				service = strdup(buf + 7);
+			}
+			if (strncmp(buf, "login", 5) == 0)
+			{
+				/*
+					0x080486e2 <+382>:   mov    0x8049aac,%eax		; 0x8049aac <auth>
+					0x080486e7 <+387>:   mov    0x20(%eax),%eax
+					0x080486ea <+390>:   test   %eax,%eax
+				*/
+				if (auth[32] != 0) // this is the weird part
+					system("/bin/sh");
+				else
+					fwrite(1, "Password:\n", 10);
+			}
+		}
+	}
+	return (0);
+}

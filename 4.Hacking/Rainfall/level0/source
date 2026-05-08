@@ -1,0 +1,21 @@
+
+#include <...>
+
+int	main(int ac, char **av)
+{
+	int i = atoi(av[1]);
+	if (i != 423)
+	{
+		char *str = strdup(...);
+		gid_t gid = getegid();
+		uid_t uid = geteuid();
+		setresgid(...);
+		setresuid(...);
+		execv(...);		// launch a shell as level1
+	}
+	else
+	{
+		write(1, "No !\n", 5);
+	}
+	return 0;
+}

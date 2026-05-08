@@ -1,0 +1,24 @@
+
+# jle if cmp <=9
+b * 0x08048446
+
+# lea x2
+b * 0x08048453
+b * 0x08048464
+
+# avant memcpy
+b * 0x08048473
+# apres memcpy
+b * 0x08048478
+
+run "5AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHH"
+
+# $ebp + 12 : tableau des args
+x/12b 0xbffff720
+
+# arg 1
+x/33x *0xbffff7b8
+
+# int n = atoi(argv[1]) => dans eax
+c
+x/1x 0xbffff70c

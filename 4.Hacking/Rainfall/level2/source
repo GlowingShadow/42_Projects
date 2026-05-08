@@ -1,0 +1,22 @@
+#include <...>
+
+void	p(void)
+{
+	char buf[X];
+
+	fflush(...);
+	char *ptr = gets(buf);
+	if ((int)ptr & 0xb0000000)
+	{
+		printf("(%p)\n", (void*)ptr);
+		exit(1);
+	}
+	puts(buf);
+	strdup(buf);
+}
+
+int main(void)
+{
+	p();
+	return (0);
+}

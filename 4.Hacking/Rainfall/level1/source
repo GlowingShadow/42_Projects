@@ -1,0 +1,15 @@
+#include <...>
+
+void	run(void)
+{
+	write(1, "Good... Wait what?\n", 19);
+	system("/bin/sh");
+}
+
+int		main(void)
+{
+	char buf[80];
+
+	gets(buf);
+	return (0);
+}

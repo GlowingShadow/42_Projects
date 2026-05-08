@@ -1,0 +1,37 @@
+#include <...>
+
+int		language = 0;
+
+void		greetuser(char *s)
+{
+	char buf[72];
+
+	if (language == 0)
+		~strcpy(buf, "Hello ");
+	else if (language == 1)
+		~strcpy(buf, "Hyvää päivää ");
+	else if (language == 2)
+		~strcpy(buf, "Goedemiddag! ");
+	strcat(buf, s);
+	puts(buf);
+}
+
+int		main(int ac, char **av)
+{
+	char buf[80];
+
+	if (ac == 3)
+	{
+		strncpy(buf, av[1], 40);
+		strncpy(buf + 40, av[2], 32);
+		char *lang = getenv("LANG");
+		if (memcmp(lang, "fi") == 0)
+			language = 1;
+		if (memcmp(lang, "nl") == 0)
+			language = 2;
+		greetuser(buf);
+	}
+	else
+		return (1);
+	return (0);
+}

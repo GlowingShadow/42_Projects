@@ -1,0 +1,23 @@
+# apres fopen
+b * 0x08048518
+
+# avant cmp
+b * 0x08048533
+
+# zap le test fopen() = 0
+run A
+c
+b * 0x0804853d
+ju * 0x0804853d
+c
+
+# apres ret fopen -> 0x18(esp)
+b * 0x08048558
+
+# avant
+b * 0x0804858e
+
+#set *(int*)0xbffff6a8 = 1
+
+#esp : 0xbffff690
+#+ 18 : 0xbffff6a8

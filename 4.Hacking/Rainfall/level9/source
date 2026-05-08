@@ -1,0 +1,15 @@
+#include <...>
+
+int	main(int ac, char **av)
+{
+	if (ac == 1)
+		exit(1);
+
+	N	*instance1 = new N(<int_value>);	// 0x804a008
+	N	*instance2 = new N(<int_value>);	// 0x804a078
+
+	instance1->setAnnotationt(av[1]);	// use memcpy (!)
+	instance2 += <N_instance>;			// call N::operator+(N&) ()
+
+	return (0);
+}

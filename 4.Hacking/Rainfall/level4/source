@@ -1,0 +1,26 @@
+
+#include <...>
+
+int	m = 0;
+
+void	p(char *str)
+{
+	printf(str);
+}
+
+void	n()
+{
+	char	buf[X];
+
+	fgets(buf, X, stdin);
+	p(buf);
+	if (m == 16930116)
+	{
+		system("/bin/sh");
+	}
+}
+
+void main(void)
+{
+	n();
+}

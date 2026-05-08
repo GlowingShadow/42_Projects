@@ -1,0 +1,17 @@
+Le programme lis le contenu de "/home/user/end/.pass" et le stock dans buf.
+Il fait ensuite un atoi() de argv[1] et le stock dans n.
+Il tronque le buf apres n char. (buf[n] = 0;)
+Il fait un strcmp de son buf et de argv[1], si cest ok il lance execl("/bin/sh").
+
+Donc si atoi() return 0, il tronque buf sur le 1er char,
+ce qui donne une comparaison de "" et argv[1].
+
+Donc il suffit d'envoyer une chaine vide:
+	bonus3@RainFall:~$ ./bonus ""
+	$ cat /home/user/end/.pass 
+	3321b6f81659f9a71c76616f606e4b50189cecfea611393d5d649f75e157353c
+
+$ su end
+Password:
+end@RainFall:~$ cat end
+Congratulations graduate!
