@@ -81,8 +81,9 @@ A collection of projects completed at [42 School](https://42.fr), organized by c
 | **snake** | Terminal snake game |
 | **arkanoid** | Arkanoid/breakout clone using GLFW |
 | **newmalloc** | Custom `malloc` / `free` / `realloc` implementation |
+| **swapper** | Interactive visual trainer for `push_swap` — keyboard-driven two-stack operations with MiniLibX, prints move history and pile state in real time |
 | **count_island.c** | Count islands in a 2D grid (BFS/DFS) |
-| **mult.c** | Matrix multiplication |
+| **mult.c** | Big integer multiplier — digit-by-digit multiplication on arbitrarily long numbers passed as strings, with negative number and leading zero handling |
 | **recursive.c** | Recursive algorithms practice |
 
 ---
