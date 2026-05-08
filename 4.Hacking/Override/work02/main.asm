@@ -1,0 +1,166 @@
+level02`main:
+level02[0x400814] <+0>:   pushq  %rbp
+level02[0x400815] <+1>:   movq   %rsp, %rbp
+level02[0x400818] <+4>:   subq   $0x120, %rsp              ; imm = 0x120	288
+level02[0x40081f] <+11>:  movl   %edi, -0x114(%rbp)			; -276
+level02[0x400825] <+17>:  movq   %rsi, -0x120(%rbp)
+level02[0x40082c] <+24>:  leaq   -0x70(%rbp), %rdx			; -112
+level02[0x400830] <+28>:  movl   $0x0, %eax
+level02[0x400835] <+33>:  movl   $0xc, %ecx					; 12
+level02[0x40083a] <+38>:  movq   %rdx, %rdi
+level02[0x40083d] <+41>:  rep
+level02[0x40083e] <+42>:  stosq  %rax, %es:(%rdi)
+level02[0x400840] <+44>:  movq   %rdi, %rdx
+level02[0x400843] <+47>:  movl   %eax, (%rdx)
+level02[0x400845] <+49>:  addq   $0x4, %rdx
+level02[0x400849] <+53>:  leaq   -0xa0(%rbp), %rdx
+level02[0x400850] <+60>:  movl   $0x0, %eax
+level02[0x400855] <+65>:  movl   $0x5, %ecx
+level02[0x40085a] <+70>:  movq   %rdx, %rdi
+level02[0x40085d] <+73>:  rep
+level02[0x40085e] <+74>:  stosq  %rax, %es:(%rdi)
+level02[0x400860] <+76>:  movq   %rdi, %rdx
+level02[0x400863] <+79>:  movb   %al, (%rdx)
+level02[0x400865] <+81>:  addq   $0x1, %rdx
+level02[0x400869] <+85>:  leaq   -0x110(%rbp), %rdx			; -272
+level02[0x400870] <+92>:  movl   $0x0, %eax
+level02[0x400875] <+97>:  movl   $0xc, %ecx					; 12
+level02[0x40087a] <+102>: movq   %rdx, %rdi
+level02[0x40087d] <+105>: rep
+level02[0x40087e] <+106>: stosq  %rax, %es:(%rdi)
+level02[0x400880] <+108>: movq   %rdi, %rdx
+level02[0x400883] <+111>: movl   %eax, (%rdx)
+level02[0x400885] <+113>: addq   $0x4, %rdx
+level02[0x400889] <+117>: movq   $0x0, -0x8(%rbp)
+level02[0x400891] <+125>: movl   $0x0, -0xc(%rbp)			; -12
+level02[0x400898] <+132>: movl   $0x400bb0, %edx           ; imm = 0x400BB0		"r"
+level02[0x40089d] <+137>: movl   $0x400bb2, %eax           ; imm = 0x400BB2		"/home/users/level03/.pass"
+level02[0x4008a2] <+142>: movq   %rdx, %rsi
+level02[0x4008a5] <+145>: movq   %rax, %rdi
+level02[0x4008a8] <+148>: callq  0x400700                  ; symbol stub for: fopen
+level02[0x4008ad] <+153>: movq   %rax, -0x8(%rbp)
+level02[0x4008b1] <+157>: cmpq   $0x0, -0x8(%rbp)
+level02[0x4008b6] <+162>: jne    0x4008e6                  ; <+210>
+level02[0x4008b8] <+164>: movq   0x200991(%rip), %rax      ; stderr@@GLIBC_2.2.5
+level02[0x4008bf] <+171>: movq   %rax, %rdx
+level02[0x4008c2] <+174>: movl   $0x400bd0, %eax           ; imm = 0x400BD0			"ERROR: failed to open password file\n"
+level02[0x4008c7] <+179>: movq   %rdx, %rcx
+level02[0x4008ca] <+182>: movl   $0x24, %edx				; 36
+level02[0x4008cf] <+187>: movl   $0x1, %esi
+level02[0x4008d4] <+192>: movq   %rax, %rdi
+level02[0x4008d7] <+195>: callq  0x400720                  ; symbol stub for: fwrite
+level02[0x4008dc] <+200>: movl   $0x1, %edi
+level02[0x4008e1] <+205>: callq  0x400710                  ; symbol stub for: exit
+level02[0x4008e6] <+210>: leaq   -0xa0(%rbp), %rax			; -160
+level02[0x4008ed] <+217>: movq   -0x8(%rbp), %rdx
+level02[0x4008f1] <+221>: movq   %rdx, %rcx
+level02[0x4008f4] <+224>: movl   $0x29, %edx				; 41
+level02[0x4008f9] <+229>: movl   $0x1, %esi
+level02[0x4008fe] <+234>: movq   %rax, %rdi
+level02[0x400901] <+237>: callq  0x400690                  ; symbol stub for: fread
+level02[0x400906] <+242>: movl   %eax, -0xc(%rbp)			; -12
+level02[0x400909] <+245>: leaq   -0xa0(%rbp), %rax
+level02[0x400910] <+252>: movl   $0x400bf5, %esi           ; imm = 0x400BF5				"\n" at start
+level02[0x400915] <+257>: movq   %rax, %rdi
+level02[0x400918] <+260>: callq  0x4006d0                  ; symbol stub for: strcspn
+level02[0x40091d] <+265>: movb   $0x0, -0xa0(%rbp,%rax)		; -160
+level02[0x400925] <+273>: cmpl   $0x29, -0xc(%rbp)			; -12
+level02[0x400929] <+277>: je     0x40097d                  ; <+361>
+level02[0x40092b] <+279>: movq   0x20091e(%rip), %rax      ; stderr@@GLIBC_2.2.5
+level02[0x400932] <+286>: movq   %rax, %rdx
+level02[0x400935] <+289>: movl   $0x400bf8, %eax           ; imm = 0x400BF8				;"ERROR: failed to read password file\n"
+level02[0x40093a] <+294>: movq   %rdx, %rcx
+level02[0x40093d] <+297>: movl   $0x24, %edx				; 36
+level02[0x400942] <+302>: movl   $0x1, %esi
+level02[0x400947] <+307>: movq   %rax, %rdi
+level02[0x40094a] <+310>: callq  0x400720                  ; symbol stub for: fwrite
+level02[0x40094f] <+315>: movq   0x2008fa(%rip), %rax      ; stderr@@GLIBC_2.2.5
+level02[0x400956] <+322>: movq   %rax, %rdx
+level02[0x400959] <+325>: movl   $0x400bf8, %eax           ; imm = 0x400BF8				"ERROR: failed to read password file\n"
+level02[0x40095e] <+330>: movq   %rdx, %rcx
+level02[0x400961] <+333>: movl   $0x24, %edx				; 36
+level02[0x400966] <+338>: movl   $0x1, %esi
+level02[0x40096b] <+343>: movq   %rax, %rdi
+level02[0x40096e] <+346>: callq  0x400720                  ; symbol stub for: fwrite
+level02[0x400973] <+351>: movl   $0x1, %edi
+level02[0x400978] <+356>: callq  0x400710                  ; symbol stub for: exit
+level02[0x40097d] <+361>: movq   -0x8(%rbp), %rax
+level02[0x400981] <+365>: movq   %rax, %rdi
+level02[0x400984] <+368>: callq  0x4006a0                  ; symbol stub for: fclose
+level02[0x400989] <+373>: movl   $0x400c20, %edi           ; imm = 0x400C20				"===== [ Secure Access System v1.0 ] ====="
+level02[0x40098e] <+378>: callq  0x400680                  ; symbol stub for: puts
+level02[0x400993] <+383>: movl   $0x400c50, %edi           ; imm = 0x400C50				"/", '*' <repeats 39 times>, "\\"
+level02[0x400998] <+388>: callq  0x400680                  ; symbol stub for: puts
+level02[0x40099d] <+393>: movl   $0x400c80, %edi           ; imm = 0x400C80				"| You must login to access this system. |"
+level02[0x4009a2] <+398>: callq  0x400680                  ; symbol stub for: puts
+level02[0x4009a7] <+403>: movl   $0x400cb0, %edi           ; imm = 0x400CB0				"\\", '*' <repeats 38 times>, "/"
+level02[0x4009ac] <+408>: callq  0x400680                  ; symbol stub for: puts
+level02[0x4009b1] <+413>: movl   $0x400cd9, %eax           ; imm = 0x400CD9				"--[ Username: "
+level02[0x4009b6] <+418>: movq   %rax, %rdi
+level02[0x4009b9] <+421>: movl   $0x0, %eax
+level02[0x4009be] <+426>: callq  0x4006c0                  ; symbol stub for: printf
+level02[0x4009c3] <+431>: movq   0x20087e(%rip), %rax
+level02[0x4009ca] <+438>: movq   %rax, %rdx
+level02[0x4009cd] <+441>: leaq   -0x70(%rbp), %rax			; -112
+level02[0x4009d1] <+445>: movl   $0x64, %esi				; 100
+level02[0x4009d6] <+450>: movq   %rax, %rdi
+level02[0x4009d9] <+453>: callq  0x4006f0                  ; symbol stub for: fgets
+level02[0x4009de] <+458>: leaq   -0x70(%rbp), %rax			; -112
+level02[0x4009e2] <+462>: movl   $0x400bf5, %esi           ; imm = 0x400BF5				"\n" at start
+level02[0x4009e7] <+467>: movq   %rax, %rdi
+level02[0x4009ea] <+470>: callq  0x4006d0                  ; symbol stub for: strcspn
+level02[0x4009ef] <+475>: movb   $0x0, -0x70(%rbp,%rax)		; met un '\0' apres notre input, dans le buffer
+level02[0x4009f4] <+480>: movl   $0x400ce8, %eax           ; imm = 0x400CE8				"--[ Password: "
+level02[0x4009f9] <+485>: movq   %rax, %rdi
+level02[0x4009fc] <+488>: movl   $0x0, %eax
+level02[0x400a01] <+493>: callq  0x4006c0                  ; symbol stub for: printf
+level02[0x400a06] <+498>: movq   0x20083b(%rip), %rax
+level02[0x400a0d] <+505>: movq   %rax, %rdx
+level02[0x400a10] <+508>: leaq   -0x110(%rbp), %rax			; -272
+level02[0x400a17] <+515>: movl   $0x64, %esi				; 100
+level02[0x400a1c] <+520>: movq   %rax, %rdi
+level02[0x400a1f] <+523>: callq  0x4006f0                  ; symbol stub for: fgets
+level02[0x400a24] <+528>: leaq   -0x110(%rbp), %rax			; -272
+level02[0x400a2b] <+535>: movl   $0x400bf5, %esi           ; imm = 0x400BF5				"\n" at start
+level02[0x400a30] <+540>: movq   %rax, %rdi
+level02[0x400a33] <+543>: callq  0x4006d0                  ; symbol stub for: strcspn
+level02[0x400a38] <+548>: movb   $0x0, -0x110(%rbp,%rax)	; met un '\0' apres notre input, dans le buffer
+level02[0x400a40] <+556>: movl   $0x400cf8, %edi           ; imm = 0x400CF8				'*' <repeats 41 times>
+level02[0x400a45] <+561>: callq  0x400680                  ; symbol stub for: puts
+level02[0x400a4a] <+566>: leaq   -0x110(%rbp), %rcx			; -272	input pass
+level02[0x400a51] <+573>: leaq   -0xa0(%rbp), %rax			; -160	vrai pass
+level02[0x400a58] <+580>: movl   $0x29, %edx				; 41
+level02[0x400a5d] <+585>: movq   %rcx, %rsi
+level02[0x400a60] <+588>: movq   %rax, %rdi
+level02[0x400a63] <+591>: callq  0x400670                  ; symbol stub for: strncmp
+level02[0x400a68] <+596>: testl  %eax, %eax
+level02[0x400a6a] <+598>: jne    0x400a96                  ; <+642>
+level02[0x400a6c] <+600>: movl   $0x400d22, %eax           ; imm = 0x400D22				"Greetings, %s!\n"
+level02[0x400a71] <+605>: leaq   -0x70(%rbp), %rdx			; -112
+level02[0x400a75] <+609>: movq   %rdx, %rsi
+level02[0x400a78] <+612>: movq   %rax, %rdi
+level02[0x400a7b] <+615>: movl   $0x0, %eax
+level02[0x400a80] <+620>: callq  0x4006c0                  ; symbol stub for: printf
+level02[0x400a85] <+625>: movl   $0x400d32, %edi           ; imm = 0x400D32				"/bin/sh"
+level02[0x400a8a] <+630>: callq  0x4006b0                  ; symbol stub for: system
+level02[0x400a8f] <+635>: movl   $0x0, %eax
+level02[0x400a94] <+640>: leave
+level02[0x400a95] <+641>: retq
+level02[0x400a96] <+642>: leaq   -0x70(%rbp), %rax			; -112
+level02[0x400a9a] <+646>: movq   %rax, %rdi
+level02[0x400a9d] <+649>: movl   $0x0, %eax
+level02[0x400aa2] <+654>: callq  0x4006c0                  ; symbol stub for: printf
+level02[0x400aa7] <+659>: movl   $0x400d3a, %edi           ; imm = 0x400D3A				" does not have access!"
+level02[0x400aac] <+664>: callq  0x400680                  ; symbol stub for: puts
+level02[0x400ab1] <+669>: movl   $0x1, %edi
+level02[0x400ab6] <+674>: callq  0x400710                  ; symbol stub for: exit
+
+
+123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+2400
+56789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+1376
+
+927
+1024
+

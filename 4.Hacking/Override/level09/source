@@ -1,0 +1,51 @@
+#include <>
+
+void	secret_backdoor(char *data)
+{
+	char *ptr = fgets(data+72, 128, stdin);
+	system(ptr);
+}
+
+void	set_msg(char *data)
+{
+	char *ptr = data;
+	char	buf[1024];
+	puts(">: Msg @Unix-Dude");
+	printf(">>: ");
+	fgets(buf, 1024, stdin);
+
+	strncpy(data+x, buf, data+y); //
+}
+
+void	set_username(char *data)
+{
+	puts(">: Enter your username");
+	printf(">>: ");
+	fgets(data, 128, stdin);
+	
+	while ()
+	{
+		// qquechose qui tronc name apres 41chars
+		// si on met + de 40 char, on remplace le \n de name[40]
+	}
+
+	printf(">: Welcome, %s", data);
+}
+
+void	handle_msg()
+{
+	char data[192];
+	set_username(&data);
+	set_msg(&data);
+	puts(">: Msg sent!");
+}
+
+int		main()
+{
+	puts("--------------------------------------------
+		|   ~Welcome to l33t-m$n ~    v1337        |
+		--------------------------------------------");
+	handle_msg();
+
+	return 0;
+}

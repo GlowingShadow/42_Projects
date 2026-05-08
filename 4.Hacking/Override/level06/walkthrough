@@ -1,0 +1,44 @@
+
+Le programme demande un login, et un serial. Si le serial correspond au login, il nous lance un shell.
+Comme le serial de comparaison est genere dans le programme en fonction du login,
+on peut utiliser gdb pour tester un login et obtenir le serial en breakant lors de la comparaison.
+
+	$ objdump -d level06
+	0x08048863 <+283>:   mov    0xc(%ebp),%eax				; cmp du res avec notre serial
+	0x08048866 <+286>:   cmp    -0x10(%ebp),%eax
+	0x08048869 <+289>:   je     0x8048872 <auth+298>
+
+	(voir init.gdb)
+	$ gdb -q level06 -x init.gdb
+	Reading symbols from /home/users/level06/level06...(no debugging symbols found)...done.
+	Breakpoint 1 at 0x80487bd
+	Breakpoint 2 at 0x8048866
+	***********************************
+	*               level06           *
+	***********************************
+	-> Enter Login: 123456
+	***********************************
+	***** NEW ACCOUNT DETECTED ********
+	***********************************
+	-> Enter Serial: 777
+
+	Breakpoint 1, 0x080487bd in auth ()
+
+	Breakpoint 2, 0x08048866 in auth ()
+	0xffffc6c8:     0x005f15dd
+
+0x005f15dd = 6231517, on entre le login et le serial sans gdb:
+	$ ./level06
+	***********************************
+	*               level06           *
+	***********************************
+	-> Enter Login: 123456
+	***********************************
+	***** NEW ACCOUNT DETECTED ********
+	***********************************
+	-> Enter Serial: 6231517
+	Authenticated!
+		$ whoami
+		level07
+		$ cat /home/users/level07/.pass
+		GbcPDRgsFK77LNnnuh7QyFYA2942Gp8yKj9KrWD8

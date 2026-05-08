@@ -1,0 +1,76 @@
+#include <...>
+
+
+unsigned int	get_unum(void)
+{
+	fflush(stdin);
+	unsigned int n;
+	scanf(stdin, "%u", &n);
+	clear_stdin();
+	return n;
+}
+
+int		store_number(unsigned int *tab)
+{
+	printf(" Number: ");
+	unsigned int number = get_unum();
+	printf(" Index: ");
+	unsigned int index = get_unum();
+	if (index % 3 == 0)
+	{
+		puts(" *** ERROR! ***");
+		puts("   This index is reserved for wil!");
+		puts(" *** ERROR! ***");
+		return 1;
+	}
+
+	tab[index] = number;
+
+	return 0;
+}
+
+int		read_number(unsigned int *tab)
+{
+	printf(" Index: ");
+	unsigned int index = get_unum();
+	printf(" Number at data[%u] is %u\n", index, tab[index]);
+	return 0;
+}
+
+int		main(void)
+{
+	unsigned int	tab[X];
+
+	memset(env, 0, size de env);
+	memset(arg, 0, size des arg);
+
+	puts(	"----------------------------------------------------
+			Welcome to wil's crappy number storage service!   
+			----------------------------------------------------
+			Commands:                                          
+				store - store a number into the data storage    
+				read  - read a number from the data storage     
+				quit  - exit the program                        
+			----------------------------------------------------
+			wil has reserved some storage :>                 
+			----------------------------------------------------");
+
+	while (1)
+	{
+		int ret = 1;
+		printf("Input command: ");
+		fgets(buf, 20, stdin);
+		if (strncmp(buf, "store", 5) == 0)
+			ret = store_number(tab);
+		if (strncmp(buf, "read", 4) == 0)
+			ret = read_number(tab);
+		if (strncmp(buf, "quit", 4) == 0)
+			break ;
+		if (ret == 0)
+			printf(" Completed %s command successfully\n");
+		else
+			printf(" Failed to do %s command\n", buf);
+	}
+
+	return 0;
+}

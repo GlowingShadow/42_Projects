@@ -1,0 +1,51 @@
+#include <...>
+
+void		decrypt(int password)
+{
+	char	str = "Congratulations!";
+	char	str2 = "Q}|u`sfg~sf{}|a3";
+	int i = 0;
+	while (i != len) //17
+	{
+		s[i] = s[i] ^ password;
+		i++:
+	}
+	if (str2 == str)
+		system("/bin/sh");
+}
+
+void		test(int input_pass)
+{
+	int		value = 0x1337d00d; //322424845 -> 322424824
+
+	value -= input_pass;
+	if (value <= 0x15) // 21
+	{
+		void	*p = 0x80489f0;
+		value *= 4;
+		goto *(p + value);
+		...
+		decrypt(value);
+		...
+	}
+	else
+	{
+		int r = rand();
+		decrypt(r);
+	}
+}
+
+int		main(void)
+{
+	int	pass;
+	srand(time(NULL));
+
+	puts("********************************");
+	puts("*\t\tlevel03\t\t**")
+	puts("********************************")
+	printf("Password:")// 322424827
+	scanf("%d", &pass);
+	test(pass);
+	return (0);
+}
+

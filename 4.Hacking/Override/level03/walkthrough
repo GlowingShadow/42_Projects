@@ -1,0 +1,33 @@
+Le programme attend qu'on entre un mot de passe:
+	level03@OverRide:~$ ./level03
+	***********************************
+	*               level03         **
+	***********************************
+	Password:
+
+Quand on regarde l'asm on voit qu'il fait une diff de notre input avec 322424845.
+La diff doit etre inferieure ou égale à 21, sinon il jump sur rand et modifie la diff:
+	level03@OverRide:~$ objdump -d level03
+	<test>
+	...
+	0x08048750 <+9>:     mov    0xc(%ebp),%edx                                ; 0x1337d00d 322424845
+	0x08048753 <+12>:    mov    %edx,%ecx   
+	0x08048755 <+14>:    sub    %eax,%ecx   
+	...
+	0x0804875c <+21>:    cmpl   $0x15,-0xc(%ebp)                                ; 21
+	0x08048760 <+25>:    ja     0x804884a <test+259>                        ; above go to rand()"
+
+Il envoie la diff dans la fonction decrypt qui va faire un xor sur chaque caractere de la chaine "Q}|u`sfg~sf{}|a3" .
+Le resultat doit etre egal à "Congratulations!".
+	level03@OverRide:~$ objdump -d level03	"<decrypt>
+	...
+	0x080486d5 <+117>:   xor    %edx,%eax"
+
+Il faut donc entrer une diff de 18 pour que ca marche: (322424845 - 18 = 322424827)
+	level03@OverRide:~$ ./level03
+	***********************************
+	*               level03         **
+	***********************************
+	Password:322424827
+	$ /tmp/get
+	kgv3tkEb9h2mLkRsPkXRfc2mHbjMxQzvb2FrgKkf

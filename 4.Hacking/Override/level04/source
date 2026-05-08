@@ -1,0 +1,37 @@
+#include <...>
+
+int   main(void)
+{
+   int   pid;
+   int   state;
+   int   code;
+   char  buf[X];
+
+   pid = fork();
+   if (pid == 0) // child
+   {
+      prctl(1, 1);
+      ptrace(0, 0, 0, 0);
+      puts("Give me some shellcode, k");
+      gets(buf);
+   }
+   else // parent
+   {
+      while (1)
+      {
+         wait(&state);
+         if (state & 0x7f != 0) // check les conditions
+         {
+            puts("child is exiting...");
+            return 0;
+         }
+            code = ptrace(3, pid, 0x2c, 0) // PTRACE_PEEKUSER = 3, 0x2c = 44 (?)
+            if (code == 0xb) // = 11, exec syscall
+               break ;
+      }
+      puts("no exec() for you");
+      kill(pid, 9);
+   }
+
+   return (0);
+}

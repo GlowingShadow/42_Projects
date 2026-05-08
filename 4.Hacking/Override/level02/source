@@ -1,0 +1,55 @@
+#include	<...>
+
+int		main(void)
+{
+	char	input_pass_buf[X];
+	char	pass_buf[Y];
+	char	input_user_buf[X];
+	int		passlen = 41;
+
+	int		fd;
+
+	fd = fopen("/home/users/level03/.pass", "r");
+	if (!fd)
+	{
+		fwrite(stdin, "ERROR: failed to open password file\n");
+		exit(1);
+	}
+	fread(fd, pass_buf, Y);
+	int len1 = strcspn(pass_buf, "\n");
+	pass_buf[len1] = '\0';
+	if (len1 != passlen)
+	{
+		fwrite(stdin, "ERROR: failed to read password file\n");
+		fwrite(stdin, "ERROR: failed to read password file\n");
+		exit(1);
+	}
+
+	puts("===== [ Secure Access System v1.0 ] =====");
+	puts("/***************************************\\");
+	puts("| You must login to access this system. |");
+	puts("\\**************************************/");
+	printf("--[ Username: ");
+
+	fgets(input_user_buf, 100, stdin);
+	int len2 = strcspn(input_user_buf, "\n");
+	input_user_buf[len2] = '\0';
+
+	printf("--[ Password: ");
+
+	fgets(input_pass_buf, 100, stdin);
+	int len3 = strcspn(input_pass_buf, "\n");
+	input_pass_buf[len3] = '\0';
+	puts("*****************************************");
+
+	if (strncmp(input_pass_buf, pass_buf, passlen) == 0)
+	{
+		printf("Greetings, %s!\n", input_user_buf);
+		system("/bin/sh");
+		return (0);
+	}
+	printf(input_user_buf); // bad
+	puts(" does not have access!");
+	exit(1);
+	return (0);
+}
