@@ -1,0 +1,9 @@
+# PONIES$
+3 1 4 0
+0 2 6
+4 1 3
+#1263
+#deux fois le mem chiffre
+#ligne vide
+# seulement la taille du taquin est presente => valdide. FAUX
+#manque une ligne du taquin => passe quand meme
