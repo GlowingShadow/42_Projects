@@ -1,0 +1,8 @@
+0	no error
+1	mlx_init() failed in main.c
+2	read() failed in ft_get_map.c
+3 4	find_wall.c: 0 >= ray >= 360, impossible case 
+5	ft_draw.c: 0 >= ray >= 360, impossible case 
+6	ft_iswall.c: demande un e->XXX->wall hors map || pas sur un mur
+7	fmod return error
+8	ft_draw_texture.c: data.color not set
