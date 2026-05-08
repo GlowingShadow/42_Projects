@@ -1,0 +1,78 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_getfile.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: REDACTED <REDACTED@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/05 17:07:58 by REDACTED          #+#    #+#             */
+/*   Updated: 2018/03/08 15:24:00 by REDACTED         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <libft.h>
+
+static t_str	*init_t_str(void)
+{
+	t_str	*ptr;
+
+	ptr = (t_str*)safe_malloc(sizeof(t_str));
+	ptr->str = NULL;
+	ptr->next = NULL;
+	return (ptr);
+}
+
+t_str			*ft_getfile(char *filename)
+{
+	t_str	*ptr[3];
+	char	*buf;
+	int		fd;
+
+	if ((fd = open(filename, O_RDONLY)) == -1)
+		ft_errexit("Error: open failed", RED, OPEN_FAIL);
+	ptr[2] = NULL;
+	while (get_next_line(fd, &buf) > 0)
+	{
+		ptr[0] = init_t_str();
+		ptr[0]->str = ft_strdup(buf);
+		if (ptr[2] == NULL)
+		{
+			ptr[1] = ptr[0];
+			ptr[2] = ptr[0];
+		}
+		else
+		{
+			ptr[1]->next = ptr[0];
+			ptr[1] = ptr[1]->next;
+		}
+	}
+	close(fd);
+	free(buf);
+	return (ptr[2]);
+}
+
+void			remove_comments(t_str *ptr, char *comment_str)
+{
+	char	*ptr1;
+
+	while (ptr)
+	{
+		ptr1 = ft_strstr(ptr->str, comment_str);
+		if (ptr1)
+			ptr1[0] = 0;
+		ptr = ptr->next;
+	}
+}
+
+void			remove_white_spaces(t_str *ptr)
+{
+	char	*str;
+
+	while (ptr)
+	{
+		str = ptr->str;
+		ptr->str = ft_strtrim_extended(ptr->str, WHITESPACES);
+		free(str);
+		ptr = ptr->next;
+	}
+}

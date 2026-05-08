@@ -48,6 +48,7 @@ A collection of projects completed at [42 School](https://42.fr), organized by c
 | **fractol** | Fractal explorer: Mandelbrot, Julia, Sierpinski — with zoom and color |
 | **wolf3d** | Raycasting 3D engine (Wolfenstein-style), with FMOD audio |
 | **rtv1** | Raytracer — spheres, planes, cylinders, cones, lighting, shadows |
+| **scop** | OpenGL 3D object viewer in C — loads `.obj`/`.mtl` files, custom GLSL shaders, textures, skybox, camera, using GLFW/GLEW |
 | **humangl** | OpenGL articulated human body animation |
 | **mod1** | Terrain and water simulation in Java OpenGL |
 

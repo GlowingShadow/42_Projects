@@ -1,0 +1,189 @@
+----------------
+-MMD : dependency lors de la compil
+	ex: x.h modifié, et utilisé seulement dans x.c, alors seulement x.c est recompilé
+------------------------------------------------------------------------------------------------------------
+parsing fait:
+	le pgm n accepte que des .obj ou .mtl ou -d dir_path
+		si les fichiers ne sont pas valides, ils sont ignores
+	gestion error
+	charger autant de fichier qu'on veut et creer chaque objet et materiaux
+		- un materiaux d'un fichier peut avoir le meme nom qu un autre dans un fichier different
+			faire la meme chose pour les objets ? oui
+			ou refuser tout cela, en interdisant un nom deja utilise, l'ignorer
+		! attention si on charge des fichier ayant le meme nom (ou 2 fois le meme)
+			ex: resources/42.mtl
+				assets/42.mtl
+			-> cas args: ignorer les suivants
+	checker si les numeros des vertix dans les faces (f 1 2 3) indiquees existent
+	fichier mtl
+	link mtl dans les objets
+	! attention si on charge des fichier ayant le meme nom (ou 2 fois le meme)
+		! pour mtllib -> cas -d : dabord chercher dans les args puis dans le dir -d
+parsing a faire:
+	? vertix et faces: transformer les liste chainees en tableau (garder les memes zones memoire : pas possible ?)
+
+un objet peut il etre defini sans faces ?
+on peut voir 2 fichiers .obj pour la teapot:
+	l'un avec le nom (o teapot), lautre non. donc ce keyword ne serait pas obligatoire a priori.
+	dans le cas ou il y a plusieurs objets dans un fichier, est ce que le token (o nom_de l'objet) est il obligatoire pour le premier ?
+
+bonus a faire:
+	- multiples objets (avec texture differente par ex) formant un seul ensemble
+		> parsing : plusieurs fichiers .obj : les obj dans un meme fichier forment un ensemble (rotation autour du centre de l'ensemble)
+		> plusieur .obj : pouvoir selectionner l'objet (donc l'ensemble auquel il appartient) dans la scene, pour les rotations
+		? est il necessaire de faire des objet (o object_name) differents pour utiliser des textures differentes?
+	- gestion dautres keyword du format obj
+	- charger les fichiers, puis via une interface: choisir lequel afficher avec la texture choisie
+		? maximum X objets/textures (depend de la taille de la fenetre et de la police)
+bonus faits:
+	- option -d : indiquer le dossier dans lequel chercher les assets (.mtl)
+		! si on indique un fichier et pas un dossier, check fait
+		! si on indique un .mtl + un dossier dans lequel il y a aussi ce .mtl mais cest pas le meme
+			ex: ./scop [...] ./42.mtl -d ./assets/		$(ls ./assets/) = "42.mtl"
+			- lequel prendre ? -> cherche d'abord dans les arguments, si rien: cherche dans le dossier -d
+		! si on indique plusieurs fois -d xx
+			ex: ./scop -d resources/ -d assets/
+			-> prendre les deux
+				! si ya le fichier .mtl dans les 2 ?
+					-> prendre le premier dossier de la liste (ordre des args) ou bien ordre du stock
+						- va chercher le materiaux dans tous les fichiers ayant le nom demande (mtllib)
+------------------------------------------------------------------------------------------------------------
+OpenGL 4.1 (glfw + glew)
+
+a faire:
+	texture gl:
+		pas d'ettirement: actuellement le dessin se fait sur le plan XY
+			(old)	arr[i + 0] = atan2f(face->v1->z, face->v1->x) / M_PI + M_PI * scale;
+					arr[i + 2] = atan2f(face->v2->z, face->v2->x) / M_PI + M_PI * scale;
+					arr[i + 4] = atan2f(face->v3->z, face->v3->x) / M_PI + M_PI * scale;
+
+		faire en sorte que les faces ne faisant pas parti du plan utilisé aient une texture pas etiree.
+			1-> prendre la taille de la face et l'appliquer sur le plan utilisé
+				-> comportement variable en fonctione de la forme de l'objet
+			2-> trouver un algo
+fait:
+	utilisation du .mtl
+	zoom avec le FOV
+	texture gl
+	translation
+	perspective (ce qui est loin est plus petit)
+	afficher object
+	object centre via mediane des extremites
+	KEYMAP:
+		texture:	home<	end>
+		obj:		PageUp	PageDown
+		fov up/down			+	-
+		fps up/down:		P	L
+		draw N face:
+			up/down:		-|_	+|=
+			0/MAX_FACE:		[{	]}
+		culling on/off:     C (rester appuye)
+		rotation on/off:    SPACE
+		display mod:        ENTER
+		draw mod:			1 2 3
+
+		pave numerique:
+		rotations:		translations:
+			x: 7 4			x: fleches gauche droite
+			y: 8 5			y: fleches haut bas
+			z: 9 6			z: 1 0
+
+------------------------------------------------------------------------------------------------------------
+void	cyl(void)
+{
+	int		f = 100;
+	float	h = 2.0f;
+	float	r = 2.0f;
+	float	unit = (M_PI * 2) / (float)f;
+
+	int		i = 1;
+	while (i <= f)
+	{
+		float	rad = unit * (float)i;
+		float	x = cosf(rad) * r;
+		float	z = sinf(rad) * r;
+		printf("v %lf %lf %lf\n", x, h, z);
+		printf("v %lf -%lf %lf\n", x, h, z);
+		i++;
+	}
+	printf("v 0.0 %lf 0.0\n", h);
+	printf("v 0.0 -%lf 0.0\n", h);
+	int	end = f * 2;
+	int midup = end + 1;
+	int middown = end + 2;
+	i = 0;
+	int j = 1;
+	while (i < f)
+	{
+		printf("f %d %d %d\n", midup, j + 2, j + 0);
+		printf("f %d %d %d\n", middown, j + 1, j + 3);
+		printf("f %d %d %d %d\n", j + 0, j + 2, j + 3, j + 1);
+		j += 2;
+		i++;
+	}
+	printf("f %d %d %d\n", midup, end - 1, 1);
+	printf("f %d %d %d\n", middown, end, 2);
+	printf("f %d %d %d %d\n", end - 1, 1, 2, end);
+	exit(0);
+}
+------------------------------------------------------------------------------------------------------------
+
+check xpm, taille puissance 2
+
+*autre : (5 bonus)
+	1 ++ multiple objet/mtl/texture
+	2 + -d parameter
+	3 + zoom via le FOV
+	4 ++ fps + deltaTime
+	5 + draw mode (point/line/face)
+	6 + draw N face
+------------------------------------------------------------------------------------------------------------
+OpenGL process
+
+1 program 1 obj					OK
+changer texture mapping (vbo)	OK
+matrix hors boucle				OK
+model matrix update				OK
+projection matrix update		OK
+view matrix update				OK
+catch des events souris -> cam	OK
+1 program x obj					OK
+skybox							OK
+
+libs:
+	matrix4_rotationXYZ	?
+	matrix4_rotationZYX	?
+
+pour avoir un seul clic (is_first_press) => function callback
+pour avoir le state, appeler la fonction correspondante
+	mettre a jour les events (need variable globale ?)
+
+------------------------------------------------------------------------------------------------------------
+1 programme pour 1 traitement different
+	ex: obj3D, cubemap
+
+process communs:
+	static GLuint	init_shader(char *filename, int type)
+	static GLint	get_slot(GLuint program, const GLchar *varname)
+
+obj3D blueprints:
+	changement: vertex mesh, transform (scale position rotation), vertex texture, texture
+
+.h:
+//////////// programs
+# define SKYBOX		0
+# define OBJ3D		1
+
+	un vao par obj3d, contenant:
+			les vbo pour:
+				vertex mesh
+				vertex texture
+				vertex texture_mapping_cylinder
+				vertex color_black_white
+			+ des parametres perso:
+				t_obj		*obj //ne doit jamais changer 
+				GLint		id_texture
+				t_vector3	pos
+				bool		rotate
+------------------------------------------------------------------------------------------------------------
+iburel cam correct
