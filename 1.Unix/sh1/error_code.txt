@@ -1,0 +1,8 @@
+0						OK
+-1		main.c			command not found
+-2		main.c			permission denied
+-3		ft_builtin.c 	cd too many args
+-4		ft_builtin.c 	no $HOME
+-5		ft_builtin.c 	chdir failed
+-6		ft_builtin.c	env too many args
+-7		ft_setenv.c		setenv too many args

@@ -1,0 +1,25 @@
+
+	- il arrive parfois que 2 equipes gagnent, TEAM_LEFT mal decremente? op_sem?
+f?	- dernier processus en cours,
+f?	- error: fermer correctement les ipcs pour ttes les errors
+	- shmget fail au dela de 32 processus?
+
+bonus:
+	- placement des joueurs: place au plus pres si deja occupe
+	- alliance a la volee:
+		pouvoir pause le jeu, acceder au alliance, les changer.
+	- MAP: lister les team et afficher le nombre de survivants
+		lister ennemis tues par team: creer une msgq pour la map,
+			les DEAD envoient qui les a tués a cette msgq
+	- jusqua 100 icones d equipe
+	- IAs:
+		escouades: attaque le plus pres et le plus loin?
+		attaque prefaite: lignes h/v
+	
+bonus fait:
+		- interface graphique
+		- interface joli
+		- bcp de logo (100)
+		- statistiques
+		- effet WINNER
+		- IAs: random, chase, wait
