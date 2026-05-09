@@ -1,6 +1,6 @@
 # 42 Projects
 
-A collection of projects completed at [42 School](https://42.fr), started in 2014.
+A collection of projects completed at [42 School](https://42.fr), where I studied in 2014.
 
 ---
 
